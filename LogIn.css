@@ -1,0 +1,78 @@
+#h_box{
+    -fx-background-color: #099cef;
+}
+#exit_cover{
+    -fx-background-color: #06275b;
+}
+#anchor_pane{
+-fx-background-color: #313131;
+}
+#forgot_password{
+    -fx-text-fill: #ffffff
+}
+#forgot_password:hover{
+    -fx-font-size: 18;
+}
+#log_in{
+    -fx-background-color: #099cef;
+    -fx-border-color: #ffffff;
+    -fx-text-fill: #ffffff;
+}
+#log_in:hover{
+    -fx-background-color: #083085;
+}
+#log_in:pressed{
+    -fx-background-color: linear-gradient(#4d79a1, #b2daf3);
+}
+#polygon{
+    -fx-stroke: #099cef;
+    -fx-fill: #313131;
+}
+#lable_log_in{
+    -fx-text-fill:#099cef ;
+}
+#boarder{
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
+    -fx-border-width:5;
+    -fx-border-color: #ffffff;
+    -fx-background-color: #0fabad;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.6) , 20, 0.0 , 0 , 0 );
+}
+#next{
+    -fx-text-fill: white;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(#498fd7, #254277);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+#next:hover {
+    -fx-background-color: linear-gradient(#0b4a8f, #00164f);
+}
+#next:pressed{
+    -fx-background-color: linear-gradient(#4d79a1, #b2daf3);
+}
+#cancel{
+    -fx-text-fill: white;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(#858585, #4d4d4d);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+#cancel:hover {
+    -fx-background-color: linear-gradient(#484848, #282828);
+}
+#cancel:pressed{
+    -fx-background-color: linear-gradient(#cbcbcb, #adadad);
+}
+#registered{
+    -fx-text-fill: #ffffff;
+}
+#change_password{
+    -fx-text-fill: white;
+    -fx-border-color: #ffffff;
+    -fx-background-color: #a42222;
+}
+#change_password:hover{
+    -fx-background-color: #e00000;
+}
