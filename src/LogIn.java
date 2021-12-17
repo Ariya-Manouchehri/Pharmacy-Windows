@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 
@@ -21,9 +22,9 @@ public class LogIn extends Application {
     Scene scenePassword1;
     Scene scenePassword2;
     Scene scenePassword3;
-    int countscen1 = 0;
-    int countscen2 = 0;
-    int countscen3 = 0;
+    Scene scenemanager;
+    boolean countscen1 = true;
+    boolean countscen2 = true;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -32,15 +33,18 @@ public class LogIn extends Application {
         Parent scenePassword1root = FXMLLoader.load(getClass().getResource("forgotpassword1.fxml"));
         Parent scenePassword2root = FXMLLoader.load(getClass().getResource("forgotpassword2.fxml"));
         Parent scenePassword3root = FXMLLoader.load(getClass().getResource("forgotpassword3.fxml"));
-        sceneLogin = new Scene(root, 550, 550);
-        scenePassword1 = new Scene(scenePassword1root, 550, 550);
-        scenePassword2 = new Scene(scenePassword2root, 550, 550);
-        scenePassword3 = new Scene(scenePassword3root, 550, 550);
-
+        Parent managerRoot = FXMLLoader.load(getClass().getResource("manager.fxml"));
+        sceneLogin = new Scene(root, 800, 500);
+        scenePassword1 = new Scene(scenePassword1root, 600, 600);
+        scenePassword2 = new Scene(scenePassword2root, 600, 600);
+        scenePassword3 = new Scene(scenePassword3root, 600, 600);
+        scenemanager = new Scene(managerRoot,1200,700);
 
         CurrentPrimaryStage.setTitle("Pharmacy");
         CurrentPrimaryStage.setScene(sceneLogin);
         CurrentPrimaryStage.setResizable(false);
+        ImageView drug_icon = (ImageView) root.lookup("#drug_icon");
+        animation(drug_icon);
         CurrentPrimaryStage.show();
 
         Label ForgotPassword = (Label) root.lookup("#forgot_password");
@@ -48,11 +52,18 @@ public class LogIn extends Application {
         ForgotPassword.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                countscen1 += 1;
                 CurrentPrimaryStage.setScene(scenePassword1);
-                if (countscen1 == 1) {
+                if (countscen1 == true) {
                     animation(email);
                 }
+                countscen1 = false;
+            }
+        });
+        Button login = (Button) root.lookup("#button");
+        login.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                CurrentPrimaryStage.setScene(scenemanager);
             }
         });
 
@@ -68,18 +79,17 @@ public class LogIn extends Application {
         nextButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                countscen2 += 1;
                 CurrentPrimaryStage.setScene(scenePassword2);
-                if (countscen2 == 1) {
+                if (countscen2 == true) {
                     animation(enterCode);
                 }
+                countscen2 = false;
             }
         });
 
         Button cancelButton2 = (Button) scenePassword2root.lookup("#cancel");
         Button nextButton2 = (Button) scenePassword2root.lookup("#next");
         ImageView rePassword = (ImageView) scenePassword3root.lookup("#repassword");
-
         cancelButton2.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -91,6 +101,13 @@ public class LogIn extends Application {
             public void handle(ActionEvent event) {
                 CurrentPrimaryStage.setScene(scenePassword3);
                 animation(rePassword);
+            }
+        });
+
+        Button changePassword = (Button) scenePassword3root.lookup("#button");
+        changePassword.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
             }
         });
     }

@@ -1,104 +1,110 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="anchor_pane" prefHeight="550.0" prefWidth="550.0" stylesheets="LogIn.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <AnchorPane fx:id="exit_cover" layoutY="-1.0" prefHeight="31.0" prefWidth="559.0" />
-      <HBox fx:id="h_box" alignment="CENTER" layoutY="28.0" prefHeight="100.0" prefWidth="559.0" spacing="5.0">
+<AnchorPane prefHeight="500.0" prefWidth="800.0" stylesheets="LogIn.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <AnchorPane fx:id="anchor_pane" layoutX="400.0" prefHeight="500.0" prefWidth="400.0">
+            <children>
+                <HBox layoutX="79.0" layoutY="146.0" prefHeight="63.0" prefWidth="266.0" />
+                <HBox alignment="CENTER" layoutY="130.0" prefHeight="309.0" prefWidth="400.0">
+                    <children>
+                        <VBox fx:id="boarder" alignment="TOP_CENTER" prefHeight="291.0" prefWidth="266.0">
+                            <children>
+                                <HBox alignment="CENTER" prefHeight="40.0" prefWidth="250.0">
+                                    <children>
+                                        <ImageView fx:id="user_img" fitHeight="30.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@user.png" />
+                                            </image>
+                                        </ImageView>
+                                        <TextField prefHeight="25.0" prefWidth="200.0" promptText="Username" />
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets top="45.0" />
+                                    </VBox.margin>
+                                </HBox>
+                                <HBox alignment="CENTER" prefHeight="40.0" prefWidth="250.0">
+                                    <children>
+                                        <ImageView fx:id="padlock_img" fitHeight="30.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@padlock.png" />
+                                            </image>
+                                        </ImageView>
+                                        <PasswordField prefHeight="25.0" prefWidth="200.0" promptText="Password" />
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets top="10.0" />
+                                    </VBox.margin>
+                                </HBox>
+                                <HBox alignment="CENTER" prefHeight="40.0" prefWidth="250.0">
+                                    <children>
+                                        <Button fx:id="button" mnemonicParsing="false" prefHeight="25.0" prefWidth="230.0" text="Log In">
+                                            <HBox.margin>
+                                                <Insets />
+                                            </HBox.margin>
+                                        </Button>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets top="15.0" />
+                                    </VBox.margin>
+                                </HBox>
+                                <HBox alignment="CENTER" prefHeight="40.0" prefWidth="250.0">
+                                    <children>
+                                        <Label fx:id="forgot_password" alignment="CENTER" prefHeight="31.0" prefWidth="219.0" text="Forgot password?" />
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets top="15.0" />
+                                    </VBox.margin>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+                <ImageView fitHeight="100.0" fitWidth="90.0" layoutX="295.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true" rotate="5.0">
+                    <image>
+                        <Image url="@paper-clips.png" />
+                    </image>
+                </ImageView>
+                  <Label fx:id="lable_log_in" alignment="CENTER" layoutY="20.0" prefHeight="82.0" prefWidth="400.0" text="Login">
+                      <font>
+                          <Font name="Bell MT Bold" size="48.0" />
+                      </font>
+               <padding>
+                  <Insets right="160.0" />
+               </padding>
+                  </Label>
+            </children>
+        </AnchorPane>
+      <AnchorPane fx:id="leftcolor" prefHeight="500.0" prefWidth="400.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="63.0" prefWidth="164.0" text="Pharmacy" textAlignment="CENTER">
-               <font>
-                  <Font name="Bell MT" size="38.0" />
-               </font>
-            </Label>
-            <ImageView fitHeight="83.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="drug_icon" fitHeight="192.0" fitWidth="173.0" layoutX="114.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@pharmacy.png" />
-               </image></ImageView>
-         </children>
-      </HBox>
-      <Polygon fx:id="polygon" fill="DODGERBLUE" layoutX="49.5" layoutY="90.0" rotate="90.0" stroke="BLACK" strokeType="INSIDE">
-        <points>
-          <Double fx:value="-50.0" />
-          <Double fx:value="40.0" />
-          <Double fx:value="50.0" />
-          <Double fx:value="40.0" />
-          <Double fx:value="0.0" />
-          <Double fx:value="-60.0" />
-        </points>
-      </Polygon>
-      <HBox layoutX="79.0" layoutY="146.0" prefHeight="63.0" prefWidth="480.0">
-         <children>
-            <Label fx:id="lable_log_in" prefHeight="56.0" prefWidth="302.0" text="Login">
-               <font>
-                  <Font name="Bell MT Bold" size="46.0" />
-               </font>
-            </Label>
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" layoutY="212.0" prefHeight="292.0" prefWidth="559.0">
-         <children>
-            <VBox fx:id="boarder" alignment="TOP_CENTER" prefHeight="302.0" prefWidth="266.0">
-               <children>
-                  <HBox alignment="CENTER" prefHeight="40.0" prefWidth="250.0">
-                     <children>
-                        <ImageView fx:id="user_img" fitHeight="30.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@user.png" />
-                           </image>
+                  <Image url="@pills.png" />
+               </image>
+            </ImageView>
+                <HBox fx:id="h_box" alignment="CENTER" prefHeight="100.0" prefWidth="400.0">
+                    <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="63.0" prefWidth="243.0" text="Pharmacy" textAlignment="CENTER">
+                            <font>
+                                <Font name="Berlin Sans FB" size="50.0" />
+                            </font>
+                        </Label>
+                        <ImageView fitHeight="117.0" fitWidth="123.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@pharmacy.png" />
+                            </image>
+                     <HBox.margin>
+                        <Insets right="25.0" />
+                     </HBox.margin>
                         </ImageView>
-                        <TextField prefHeight="25.0" prefWidth="200.0" promptText="Username" />
-                     </children>
-                     <VBox.margin>
-                        <Insets top="45.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="40.0" prefWidth="250.0">
-                     <children>
-                        <ImageView fx:id="padlock_img" fitHeight="30.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@padlock.png" />
-                           </image>
-                        </ImageView>
-                        <PasswordField prefHeight="25.0" prefWidth="200.0" promptText="Password" />
-                     </children>
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="40.0" prefWidth="250.0">
-                     <children>
-                        <Button fx:id="log_in" mnemonicParsing="false" prefHeight="25.0" prefWidth="230.0" text="Log In">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </Button>
-                     </children>
-                     <VBox.margin>
-                        <Insets top="15.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="40.0" prefWidth="250.0">
-                     <children>
-                        <Label fx:id="forgot_password" alignment="CENTER" prefHeight="31.0" prefWidth="219.0" text="Forgot password?" />
-                     </children>
-                     <VBox.margin>
-                        <Insets top="15.0" />
-                     </VBox.margin>
-                  </HBox>
-               </children>
-            </VBox>
-         </children></HBox>
-      <ImageView fitHeight="100.0" fitWidth="90.0" layoutX="365.0" layoutY="190.0" pickOnBounds="true" preserveRatio="true" rotate="5.0">
-         <image>
-            <Image url="@paper-clips.png" />
-         </image></ImageView>
-   </children>
+                    </children>
+                </HBox>
+         </children>
+      </AnchorPane>
+    </children>
 </AnchorPane>

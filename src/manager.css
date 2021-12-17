@@ -1,0 +1,6 @@
+#hbox_bar{
+    -fx-background-color: #3a1f64;
+}
+#buttons {
+    -fx-content-display: Left;
+}
