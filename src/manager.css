@@ -1,6 +1,30 @@
 #hbox_bar{
-    -fx-background-color: #3a1f64;
+    -fx-background-color: linear-gradient(#3dbd93, #04805f);
 }
-#buttons {
-    -fx-content-display: Left;
+.button{
+    -fx-background-color: #3dbd93;
+    -fx-text-fill: #ffffff;
+}
+.button:hover{
+    -fx-background-color: #147e5b;
+    -fx-font-size: 20;
+    -fx-font-style: bold;
+}
+
+.button:pressed{
+    -fx-background-color: #147e5b;
+}
+
+.button:focused{
+    -fx-background-color: #147e5b;
+    -fx-border-color: #ffffff;
+    -fx-border-width: 0px 0px 0px 3px;
+    -fx-font-size: 20;
+    -fx-font-style: bold;
+}
+#label{
+    -fx-background-color: #d78f00;
+}
+#circle_image{
+    -fx-stroke: rgba(255, 255, 255, 0);
 }

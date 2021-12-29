@@ -1,4 +1,5 @@
 import javafx.animation.Animation;
+import javafx.animation.ParallelTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
@@ -9,10 +10,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 
@@ -34,13 +37,14 @@ public class LogIn extends Application {
         Parent scenePassword2root = FXMLLoader.load(getClass().getResource("forgotpassword2.fxml"));
         Parent scenePassword3root = FXMLLoader.load(getClass().getResource("forgotpassword3.fxml"));
         Parent managerRoot = FXMLLoader.load(getClass().getResource("manager.fxml"));
-        sceneLogin = new Scene(root, 800, 500);
-        scenePassword1 = new Scene(scenePassword1root, 600, 600);
-        scenePassword2 = new Scene(scenePassword2root, 600, 600);
-        scenePassword3 = new Scene(scenePassword3root, 600, 600);
-        scenemanager = new Scene(managerRoot,1200,700);
+        sceneLogin = new Scene(root, 900, 550);
+        scenePassword1 = new Scene(scenePassword1root, 900, 550);
+        scenePassword2 = new Scene(scenePassword2root, 900, 550);
+        scenePassword3 = new Scene(scenePassword3root, 900, 550);
+        scenemanager = new Scene(managerRoot, 1200, 700);
 
         CurrentPrimaryStage.setTitle("Pharmacy");
+        CurrentPrimaryStage.getIcons().add(new Image("pills.png"));
         CurrentPrimaryStage.setScene(sceneLogin);
         CurrentPrimaryStage.setResizable(false);
         ImageView drug_icon = (ImageView) root.lookup("#drug_icon");
@@ -48,28 +52,32 @@ public class LogIn extends Application {
         CurrentPrimaryStage.show();
 
         Label ForgotPassword = (Label) root.lookup("#forgot_password");
-        ImageView email = (ImageView) scenePassword1root.lookup("#email_icon");
+        ImageView drug_icon1 = (ImageView) scenePassword1root.lookup("#drug_icon");
         ForgotPassword.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 CurrentPrimaryStage.setScene(scenePassword1);
                 if (countscen1 == true) {
-                    animation(email);
+                    animation(drug_icon1);
                 }
                 countscen1 = false;
             }
         });
         Button login = (Button) root.lookup("#button");
+        Circle circle_image = (Circle) managerRoot.lookup("#circle_image");
         login.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                CurrentPrimaryStage.setResizable(true);
+                Image path = new Image("icons8-male-user-100.png",false);
+                circle_image.setFill(new ImagePattern(path));
                 CurrentPrimaryStage.setScene(scenemanager);
             }
         });
 
         Button cancelButton = (Button) scenePassword1root.lookup("#cancel");
         Button nextButton = (Button) scenePassword1root.lookup("#next");
-        ImageView enterCode = (ImageView) scenePassword2root.lookup("#entercode_icon");
+        ImageView drug_icon2 = (ImageView) scenePassword2root.lookup("#drug_icon");
         cancelButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -81,7 +89,7 @@ public class LogIn extends Application {
             public void handle(ActionEvent event) {
                 CurrentPrimaryStage.setScene(scenePassword2);
                 if (countscen2 == true) {
-                    animation(enterCode);
+                    animation(drug_icon2);
                 }
                 countscen2 = false;
             }
@@ -89,7 +97,7 @@ public class LogIn extends Application {
 
         Button cancelButton2 = (Button) scenePassword2root.lookup("#cancel");
         Button nextButton2 = (Button) scenePassword2root.lookup("#next");
-        ImageView rePassword = (ImageView) scenePassword3root.lookup("#repassword");
+        ImageView drug_icon3 = (ImageView) scenePassword3root.lookup("#drug_icon");
         cancelButton2.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -100,7 +108,7 @@ public class LogIn extends Application {
             @Override
             public void handle(ActionEvent event) {
                 CurrentPrimaryStage.setScene(scenePassword3);
-                animation(rePassword);
+                animation(drug_icon3);
             }
         });
 
