@@ -36,10 +36,10 @@ public class LogIn extends Application {
         Parent scenePassword2root = FXMLLoader.load(getClass().getResource("fxml/forgotpassword2.fxml"));
         Parent scenePassword3root = FXMLLoader.load(getClass().getResource("fxml/forgotpassword3.fxml"));
         Parent managerRoot = FXMLLoader.load(getClass().getResource("fxml/manager.fxml"));
-        sceneLogin = new Scene(root, 900, 550);
-        scenePassword1 = new Scene(scenePassword1root, 900, 550);
-        scenePassword2 = new Scene(scenePassword2root, 900, 550);
-        scenePassword3 = new Scene(scenePassword3root, 900, 550);
+        sceneLogin = new Scene(root, 700, 450);
+        scenePassword1 = new Scene(scenePassword1root, 700, 450);
+        scenePassword2 = new Scene(scenePassword2root, 700, 450);
+        scenePassword3 = new Scene(scenePassword3root, 700, 450);
         scenemanager = new Scene(managerRoot, 1200, 700);
 
         CurrentPrimaryStage.setTitle("Pharmacy");

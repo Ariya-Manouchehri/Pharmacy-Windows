@@ -5,15 +5,14 @@
     -fx-font-size: 18;
 }
 #button{
-    -fx-background-color: #099cef;
-    -fx-border-color: #ffffff;
+    -fx-background-color: #0d4c80;
     -fx-text-fill: #ffffff;
 }
 #button:hover{
-    -fx-background-color: #083085;
+    -fx-background-color: #072393;
 }
 #button:pressed{
-    -fx-background-color: linear-gradient(#4d79a1, #b2daf3);
+    -fx-background-color: linear-gradient(#091169, #030034);
 }
 #lable_log_in{
     -fx-text-fill:#099cef ;
