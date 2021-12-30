@@ -1,5 +1,4 @@
 import javafx.animation.Animation;
-import javafx.animation.ParallelTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
@@ -32,11 +31,11 @@ public class LogIn extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         CurrentPrimaryStage = primaryStage;
-        Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
-        Parent scenePassword1root = FXMLLoader.load(getClass().getResource("forgotpassword1.fxml"));
-        Parent scenePassword2root = FXMLLoader.load(getClass().getResource("forgotpassword2.fxml"));
-        Parent scenePassword3root = FXMLLoader.load(getClass().getResource("forgotpassword3.fxml"));
-        Parent managerRoot = FXMLLoader.load(getClass().getResource("manager.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("fxml/login.fxml"));
+        Parent scenePassword1root = FXMLLoader.load(getClass().getResource("fxml/forgotpassword1.fxml"));
+        Parent scenePassword2root = FXMLLoader.load(getClass().getResource("fxml/forgotpassword2.fxml"));
+        Parent scenePassword3root = FXMLLoader.load(getClass().getResource("fxml/forgotpassword3.fxml"));
+        Parent managerRoot = FXMLLoader.load(getClass().getResource("fxml/manager.fxml"));
         sceneLogin = new Scene(root, 900, 550);
         scenePassword1 = new Scene(scenePassword1root, 900, 550);
         scenePassword2 = new Scene(scenePassword2root, 900, 550);
@@ -44,7 +43,7 @@ public class LogIn extends Application {
         scenemanager = new Scene(managerRoot, 1200, 700);
 
         CurrentPrimaryStage.setTitle("Pharmacy");
-        CurrentPrimaryStage.getIcons().add(new Image("pills.png"));
+        CurrentPrimaryStage.getIcons().add(new Image("res/pills.png"));
         CurrentPrimaryStage.setScene(sceneLogin);
         CurrentPrimaryStage.setResizable(false);
         ImageView drug_icon = (ImageView) root.lookup("#drug_icon");
@@ -69,7 +68,7 @@ public class LogIn extends Application {
             @Override
             public void handle(ActionEvent event) {
                 CurrentPrimaryStage.setResizable(true);
-                Image path = new Image("icons8-male-user-100.png",false);
+                Image path = new Image("res/icons8-male-user-100.png",false);
                 circle_image.setFill(new ImagePattern(path));
                 CurrentPrimaryStage.setScene(scenemanager);
             }

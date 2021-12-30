@@ -7,7 +7,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" stylesheets="manager.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="managercontroler">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" stylesheets="@../css/manager.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="managercontroler">
    <children>
       <VBox fx:id="hbox_bar" prefHeight="600.0" prefWidth="280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -15,7 +15,7 @@
                <children>
                   <ImageView fitHeight="80.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@pills.png" />
+                        <Image url="@../res/pills.png" />
                      </image>
                      <HBox.margin>
                         <Insets left="10.0" />
@@ -46,7 +46,7 @@
                <graphic>
                   <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@user.png" />
+                        <Image url="@../res/user.png" />
                      </image></ImageView>
                </graphic></Button>
             <Button fx:id="orders" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#button" prefHeight="60.0" prefWidth="280.0" text="Orders">
@@ -94,7 +94,7 @@
                               <Insets right="15.0" top="120.0" />
                            </HBox.margin>
                            <image>
-                              <Image url="@icons8-edit-30.png" />
+                              <Image url="@../res/icons8-edit-30.png" />
                            </image>
                         </ImageView>
                         <Circle fx:id="circle_image" fill="DODGERBLUE" radius="80.0" stroke="BLACK" strokeType="INSIDE" />

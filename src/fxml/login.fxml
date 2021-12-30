@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="550.0" prefWidth="900.0" stylesheets="LogIn.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="550.0" prefWidth="900.0" stylesheets="@../css/LogIn.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <AnchorPane fx:id="anchor_pane" layoutX="450.0" prefHeight="550.0" prefWidth="450.0">
             <children>
@@ -19,7 +19,7 @@
                                     <children>
                                         <ImageView fx:id="user_img" fitHeight="35.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
-                                                <Image url="@user.png" />
+                                                <Image url="@../res/user.png" />
                                             </image>
                                         </ImageView>
                               <TextField prefHeight="30.0" prefWidth="220.0" promptText="Username" />
@@ -32,7 +32,7 @@
                                     <children>
                                         <ImageView fx:id="padlock_img" fitHeight="35.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
-                                                <Image url="@padlock.png" />
+                                                <Image url="@../res/padlock.png" />
                                             </image>
                                         </ImageView>
                               <TextField prefHeight="30.0" prefWidth="220.0" promptText="Password" />
@@ -67,7 +67,7 @@
                 </HBox>
                 <ImageView fitHeight="101.0" fitWidth="100.0" layoutX="330.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" rotate="5.0">
                     <image>
-                        <Image url="@paper-clips.png" />
+                        <Image url="@../res/paper-clips.png" />
                     </image>
                 </ImageView>
                   <Label fx:id="lable_log_in" alignment="CENTER" layoutY="35.0" prefHeight="82.0" prefWidth="450.0" text="Login">
@@ -84,7 +84,7 @@
          <children>
             <ImageView fx:id="drug_icon" fitHeight="192.0" fitWidth="173.0" layoutX="139.0" layoutY="246.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@pills.png" />
+                  <Image url="@../res/pills.png" />
                </image>
             </ImageView>
                 <HBox fx:id="pharmacy" alignment="CENTER" layoutX="15.0" layoutY="40.0" prefHeight="100.0" prefWidth="420.0">
@@ -96,7 +96,7 @@
                         </Label>
                         <ImageView fitHeight="117.0" fitWidth="123.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@pharmacy.png" />
+                                <Image url="@../res/pharmacy.png" />
                             </image>
                      <HBox.margin>
                         <Insets right="25.0" />
