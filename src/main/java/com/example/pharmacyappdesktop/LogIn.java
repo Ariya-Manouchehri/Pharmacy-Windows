@@ -1,3 +1,5 @@
+package com.example.pharmacyappdesktop;
+
 import javafx.animation.Animation;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
@@ -31,11 +33,11 @@ public class LogIn extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         CurrentPrimaryStage = primaryStage;
-        Parent root = FXMLLoader.load(getClass().getResource("fxml/login.fxml"));
-        Parent scenePassword1root = FXMLLoader.load(getClass().getResource("fxml/forgotpassword1.fxml"));
-        Parent scenePassword2root = FXMLLoader.load(getClass().getResource("fxml/forgotpassword2.fxml"));
-        Parent scenePassword3root = FXMLLoader.load(getClass().getResource("fxml/forgotpassword3.fxml"));
-        Parent managerRoot = FXMLLoader.load(getClass().getResource("fxml/manager.fxml"));
+        Parent root = FXMLLoader.load(ClassLoader.getSystemResource("fxml/login.fxml"));
+        Parent scenePassword1root = FXMLLoader.load(ClassLoader.getSystemResource("fxml/forgotpassword1.fxml"));
+        Parent scenePassword2root = FXMLLoader.load(ClassLoader.getSystemResource("fxml/forgotpassword2.fxml"));
+        Parent scenePassword3root = FXMLLoader.load(ClassLoader.getSystemResource("fxml/forgotpassword3.fxml"));
+        Parent managerRoot = FXMLLoader.load(ClassLoader.getSystemResource("fxml/manager.fxml"));
         sceneLogin = new Scene(root, 700, 450);
         scenePassword1 = new Scene(scenePassword1root, 700, 450);
         scenePassword2 = new Scene(scenePassword2root, 700, 450);
