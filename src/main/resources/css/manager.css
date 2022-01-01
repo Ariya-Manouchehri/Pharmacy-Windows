@@ -1,21 +1,21 @@
 #hbox_bar{
     -fx-background-color: linear-gradient(#3dbd93, #04805f);
 }
-.button{
+.button_control{
     -fx-background-color: #3dbd93;
     -fx-text-fill: #ffffff;
 }
-.button:hover{
+.button_control:hover{
     -fx-background-color: #147e5b;
     -fx-font-size: 20;
     -fx-font-style: bold;
 }
 
-.button:pressed{
+.button_control:pressed{
     -fx-background-color: #147e5b;
 }
 
-.button:focused{
+.button_control:focused{
     -fx-background-color: #147e5b;
     -fx-border-color: #ffffff;
     -fx-border-width: 0px 0px 0px 3px;
@@ -27,4 +27,46 @@
 }
 #circle_image{
     -fx-stroke: rgba(255, 255, 255, 0);
+}
+#save{
+    -fx-background-color: #f1c143;
+    -fx-text-fill: #ffffff;
+}
+#Cancel{
+    -fx-background-color: #bdbdbd;
+    -fx-text-fill: #ffffff;
+}
+#add_drug{
+    -fx-background-color: #f1c143;
+    -fx-text-fill: #ffffff;
+}
+#remove_drug{
+    -fx-background-color: #bdbdbd;
+    -fx-text-fill: #ffffff;
+}
+#background_anchorpane{
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-background-color: linear-gradient(#b2dee7, #ffffff 80%);
+}
+.profile_field{
+    -fx-background-color: #bdbdbd;
+    -fx-prompt-text-fill: #ffffff;
+    -fx-font-size: 14;
+}
+#address {
+    -fx-control-inner-background: #bdbdbd;
+    -fx-prompt-text-fill: #ffffff;
+    -fx-font-size: 14;
+}
+#drug_boarder{
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-background-color: #e03131;
+}
+#drug_detail{
+    -fx-background-color: #ffffff;
+}
+#Search{
+    -fx-font-size: 16;
 }

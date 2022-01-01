@@ -42,7 +42,7 @@ public class LogIn extends Application {
         scenePassword1 = new Scene(scenePassword1root, 700, 450);
         scenePassword2 = new Scene(scenePassword2root, 700, 450);
         scenePassword3 = new Scene(scenePassword3root, 700, 450);
-        scenemanager = new Scene(managerRoot, 1200, 700);
+        scenemanager = new Scene(managerRoot, 1050, 630);
 
         CurrentPrimaryStage.setTitle("Pharmacy");
         CurrentPrimaryStage.getIcons().add(new Image("res/pills.png"));
@@ -73,6 +73,8 @@ public class LogIn extends Application {
                 Image path = new Image("res/icons8-male-user-100.png",false);
                 circle_image.setFill(new ImagePattern(path));
                 CurrentPrimaryStage.setScene(scenemanager);
+                CurrentPrimaryStage.setX(250);
+                CurrentPrimaryStage.setY(100);
             }
         });
 
