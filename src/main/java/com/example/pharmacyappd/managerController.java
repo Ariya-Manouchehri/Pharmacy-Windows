@@ -1,20 +1,18 @@
-package com.example.pharmacyappdesktop;
+package com.example.pharmacyappd;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class managercontroler implements Initializable {
+public class managerController implements Initializable {
     @FXML
     Button profile;
 
@@ -105,24 +103,9 @@ public class managercontroler implements Initializable {
             try {
                 final int j = i;
                 Node[i] = FXMLLoader.load(ClassLoader.getSystemResource("fxml/item.fxml"));
-                Node[i].setOnMouseEntered(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        Node[j].setStyle("-fx-background-color: #ffffff");
-                    }
-                });
-                Node[i].setOnMouseExited(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        Node[j].setStyle("-fx-background-color: #e03131");
-                    }
-                });
-                Node[i].setOnMousePressed(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        Node[j].setStyle("-fx-background-color: #ffffff");
-                    }
-                });
+                Node[i].setOnMouseEntered(event -> Node[j].setStyle("-fx-background-color: #ffffff"));
+                Node[i].setOnMouseExited(event -> Node[j].setStyle("-fx-background-color: #e03131"));
+                Node[i].setOnMousePressed(event -> Node[j].setStyle("-fx-background-color: #ffffff"));
                 list_of_drug.getItems().add(Node[i]);
             } catch (IOException e) {
                 e.printStackTrace();

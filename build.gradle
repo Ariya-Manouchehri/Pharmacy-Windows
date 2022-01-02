@@ -1,9 +1,10 @@
 plugins {
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.9'
+    id 'org.jetbrains.kotlin.jvm' version '1.6.10'
 }
 
-group 'com.example.pharmacyappdesktop'
+group 'com.example.pharmacyappd'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -12,7 +13,9 @@ repositories {
 
 dependencies {
     implementation 'com.jfoenix:jfoenix:9.0.10'
-
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0'
 }
 
 javafx {
@@ -20,4 +23,9 @@ javafx {
     modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
-mainClassName = 'com.example.pharmacyappdesktop.LogIn'
+sourceSets {
+    main.kotlin.srcDirs += 'src/main/kotlin'
+    main.java.srcDirs += 'src/main/java'
+}
+
+mainClassName = 'com.example.pharmacyappd.LogIn'
