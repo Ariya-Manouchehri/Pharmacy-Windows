@@ -21,4 +21,12 @@ class Repository private constructor() {
     fun login(phone: String, password: String) = runBlocking {
         pharmacyApi.login(phone, password)
     }
+
+    fun findUser(phone: String, nationalNumber: String) = runBlocking {
+        pharmacyApi.getUserInfoByPhone(phone, nationalNumber)
+    }
+
+    fun resetPassword(id: Int, password: String) = runBlocking {
+        pharmacyApi.resetPassword(id, password)
+    }
 }

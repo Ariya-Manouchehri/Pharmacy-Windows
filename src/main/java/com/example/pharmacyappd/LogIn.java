@@ -1,10 +1,19 @@
 package com.example.pharmacyappd;
 
+import com.example.pharmacyappd.model.LoginResponse;
+import com.example.pharmacyappd.model.User;
+import com.example.pharmacyappd.model.UserAndToken;
+import com.example.pharmacyappd.model.UserResponse;
 import com.example.pharmacyappd.repository.Repository;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
 import javafx.animation.Animation;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,6 +25,9 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import retrofit2.Response;
+
+import java.util.Objects;
 
 
 public class LogIn extends Application {
@@ -25,8 +37,10 @@ public class LogIn extends Application {
     Scene codeVerificationScene;
     Scene changePasswordScene;
     Scene managerScene;
+    UserAndToken currentUser;
     boolean countScene1 = true;
     boolean countScene2 = true;
+    String forgotPasswordPhone;
     Repository repository = Repository.Companion.getInstance();
 
     @Override
@@ -55,6 +69,8 @@ public class LogIn extends Application {
         animation(drugIconLogin);
         currentPrimaryStage.show();
 
+
+        JFXTextField forgotPasswordPhoneEditText = (JFXTextField) forgotPasswordRoot.lookup("#phone_edit_text");
         Label ForgotPassword = (Label) loginRoot.lookup("#forgot_password");
         ImageView drugIconForgotPassword = (ImageView) forgotPasswordRoot.lookup("#drug_icon");
         ForgotPassword.setOnMouseClicked(event -> {
@@ -63,42 +79,167 @@ public class LogIn extends Application {
                 animation(drugIconForgotPassword);
             }
             countScene1 = false;
+
         });
+
         Button login = (Button) loginRoot.lookup("#button");
         Circle circleImage = (Circle) managerRoot.lookup("#circle_image");
+        JFXTextField phoneEditText = (JFXTextField) loginRoot.lookup("#phone_edit_text");
+        JFXPasswordField passwordEditText = (JFXPasswordField) loginRoot.lookup("#password_edit_text");
+
+        SimpleObjectProperty<Response<LoginResponse>> loginResponse = new SimpleObjectProperty<>();
+        loginResponse.addListener((observable, oldValue, newValue) -> {
+            if (newValue.isSuccessful()) {
+                LoginResponse response = newValue.body();
+                assert response != null;
+                if (response.getStatus()) {
+                    Platform.runLater(() -> {
+                        currentUser = response.getResult().get(0);
+                        currentPrimaryStage.setResizable(true);
+                        Image path = new Image("res/icons8-male-user-100.png", false);
+                        circleImage.setFill(new ImagePattern(path));
+                        currentPrimaryStage.setScene(managerScene);
+                        currentPrimaryStage.setX(250);
+                        currentPrimaryStage.setY(100);
+                    });
+                }
+                // TODO show error
+
+            }
+            // TODO show error
+        });
+
         login.setOnAction(event -> {
-            currentPrimaryStage.setResizable(true);
-            Image path = new Image("res/icons8-male-user-100.png", false);
-            circleImage.setFill(new ImagePattern(path));
-            currentPrimaryStage.setScene(managerScene);
-            currentPrimaryStage.setX(250);
-            currentPrimaryStage.setY(100);
+            String phone = phoneEditText.getText();
+            String password = passwordEditText.getText();
+            if (checkStringNumber(phone)) {
+                Task onLogin = new Task() {
+                    @Override
+                    protected Object call() throws Exception {
+                        loginResponse.set(repository.login(phone, password));
+                        return null;
+                    }
+                };
+                Thread thread = new Thread(onLogin);
+                thread.start();
+            } else {
+                // TODO show error
+            }
         });
 
         Button cancelButtonForgotPassword = (Button) forgotPasswordRoot.lookup("#cancel");
         Button nextButtonForgotPassword = (Button) forgotPasswordRoot.lookup("#next");
         ImageView drugIconCodeVerification = (ImageView) codeVerificationRoot.lookup("#drug_icon");
         cancelButtonForgotPassword.setOnAction(event -> currentPrimaryStage.setScene(loginScene));
+
         nextButtonForgotPassword.setOnAction(event -> {
-            currentPrimaryStage.setScene(codeVerificationScene);
-            if (countScene2) {
-                animation(drugIconCodeVerification);
+            String phone = forgotPasswordPhoneEditText.getText();
+            if (checkStringNumber(phone)) {
+                forgotPasswordPhone = phone;
+                currentPrimaryStage.setScene(codeVerificationScene);
+                if (countScene2) {
+                    animation(drugIconCodeVerification);
+                }
+                countScene2 = false;
+            } else {
+                // TODO show error
             }
-            countScene2 = false;
         });
 
         Button cancelButtonCodeVerification = (Button) codeVerificationRoot.lookup("#cancel");
         Button nextButtonCodeVerification = (Button) codeVerificationRoot.lookup("#next");
         ImageView drugIconChangePassword = (ImageView) changePasswordRoot.lookup("#drug_icon");
         cancelButtonCodeVerification.setOnAction(event -> currentPrimaryStage.setScene(forgotPasswordScene));
+
+        SimpleObjectProperty<Response<UserResponse>> findUserResponse = new SimpleObjectProperty<>();
+        findUserResponse.addListener((observable, oldValue, newValue) -> {
+            if (newValue.isSuccessful()) {
+                UserResponse response = newValue.body();
+                assert response != null;
+                if (response.getStatus()) {
+                    Platform.runLater(() -> {
+                        currentPrimaryStage.setScene(changePasswordScene);
+                        animation(drugIconChangePassword);
+                    });
+                }
+                // TODO show error
+
+            }
+            // TODO show error
+
+        });
+
+        JFXTextField verificationNationalCodeEditText = (JFXTextField) codeVerificationRoot.lookup("#national_code_edit_text");
         nextButtonCodeVerification.setOnAction(event -> {
-            currentPrimaryStage.setScene(changePasswordScene);
-            animation(drugIconChangePassword);
+            String nationalCode = verificationNationalCodeEditText.getText();
+            if (checkStringNumber(nationalCode)) {
+                Task onReset = new Task() {
+                    @Override
+                    protected Object call() throws Exception {
+                        findUserResponse.set(repository.findUser(forgotPasswordPhone, nationalCode));
+                        return null;
+                    }
+                };
+                Thread thread = new Thread(onReset);
+                thread.start();
+            } else {
+                // TODO show error
+            }
+
+        });
+
+        SimpleObjectProperty<Response<UserResponse>> changePasswordResponse = new SimpleObjectProperty<>();
+        changePasswordResponse.addListener((observable, oldValue, newValue) -> {
+            if (newValue.isSuccessful()) {
+                UserResponse response = newValue.body();
+                assert response != null;
+                if (response.getStatus()){
+                    Platform.runLater(() -> {
+                        currentPrimaryStage.setScene(loginScene);
+                    });
+                } else {
+                    // TODO show error
+                }
+            } else {
+                // TODO show error
+            }
         });
 
         Button changePassword = (Button) changePasswordRoot.lookup("#button");
+        JFXTextField newPasswordEditText = (JFXTextField) changePasswordRoot.lookup("#new_password_edit_text");
+        JFXTextField confirmPasswordEditText = (JFXTextField) changePasswordRoot.lookup("#confirm_password_edit_text");
         changePassword.setOnAction(event -> {
+            if (newPasswordEditText.getText().isEmpty() && confirmPasswordEditText.getText().isEmpty()) {
+                // TODO show error
+            } else if (newPasswordEditText.getText().isEmpty()) {
+                // TODO show error
+            } else if (confirmPasswordEditText.getText().isEmpty()) {
+                // TODO show error
+            } else if (newPasswordEditText.getText().length() < 8) {
+                // TODO show error
+            } else if (!newPasswordEditText.getText().equals(confirmPasswordEditText.getText())) {
+                // TODO show error
+            } else {
+                User user = Objects.requireNonNull(findUserResponse.getValue().body()).getResult().get(0);
+                Task onChangPassword = new Task() {
+                    @Override
+                    protected Object call() throws Exception {
+                        changePasswordResponse.set(repository.resetPassword(user.getId(), newPasswordEditText.getText()));
+                        return null;
+                    }
+                };
+                Thread thread = new Thread(onChangPassword);
+                thread.start();
+            }
         });
+    }
+
+    public boolean checkStringNumber(String number) {
+        if (number.length() <= 0) return false;
+        for (char c : number.toCharArray()) {
+            if (c < '0' || c > '9') return false;
+        }
+        return true;
     }
 
     public void animation(ImageView enter) {
@@ -123,12 +264,12 @@ public class LogIn extends Application {
 }
 
 //
-//    SimpleObjectProperty<Response<LoginResponse>> loginResponse = new SimpleObjectProperty<>();
+//    SimpleObjectProperty<Response<com.example.pharmacyappd.model.LoginResponse>> loginResponse = new SimpleObjectProperty<>();
 //    Task task = new Task() {
 //        @Override
 //        protected Object call() throws Exception {
 //            System.out.println("login called");
-//            Response<LoginResponse> response = repository.login("568", "123456789");
+//            Response<com.example.pharmacyappd.model.LoginResponse> response = repository.login("568", "123456789");
 //            System.out.println("login finished");
 //            loginResponse.set(response);
 //            System.out.println("login response has been set");

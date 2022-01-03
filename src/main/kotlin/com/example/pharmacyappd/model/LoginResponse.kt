@@ -1,6 +1,4 @@
-package com.example.pharmacyapp.model
-
-import com.example.pharmacyappd.model.UserAndToken
+package com.example.pharmacyappd.model
 
 data class LoginResponse(
     val message: List<String> = listOf(),

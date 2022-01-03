@@ -1,6 +1,5 @@
 package com.example.pharmacyappd.repository
 
-import com.example.pharmacyapp.model.LoginResponse
 import com.example.pharmacyappd.model.*
 import retrofit2.Response
 import retrofit2.http.GET
@@ -9,7 +8,7 @@ import retrofit2.http.Query
 
 interface PharmacyApi {
     //sign-up and login (prepare)
-    @POST("api/login/patient")
+    @POST("api/login/employee")
     suspend fun login(
         @Query("phone") phone: String,
         @Query("password") password: String,
@@ -24,22 +23,10 @@ interface PharmacyApi {
         @Query("type") type: String,
     ): Response<LoginResponse>
 
-    //get category and medicine (home)
-    @GET("api/")
-    suspend fun getMedicine(
-        @Query("medName") medicineName: String,
-    ): Response<List<Medicine>>
-
-    @GET("api/")
-    suspend fun getCategory(): Response<List<Category>>
-
-    //get user information (profile)
-    @GET("api/")
-    suspend fun getUserInfo(): Response<User>
-
-    @POST("api/user/find")
+    @POST("api/user/findEmployee")
     suspend fun getUserInfoByPhone(
-        @Query("phone") phone: String
+        @Query("phone") phone: String,
+        @Query("nat_num") nationalNumber: String
     ): Response<UserResponse>
 
     @POST("api/register/patient")
