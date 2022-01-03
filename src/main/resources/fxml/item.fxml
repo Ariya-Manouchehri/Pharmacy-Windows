@@ -28,7 +28,7 @@
                      </HBox.margin></Label>
                </children>
             </HBox>
-            <Label layoutY="56.0" prefHeight="47.0" prefWidth="328.0" text="150,000,000">
+            <Label layoutY="56.0" prefHeight="47.0" prefWidth="261.0" text="150,000,000">
                <font>
                   <Font name="Calibri" size="20.0" />
                </font>

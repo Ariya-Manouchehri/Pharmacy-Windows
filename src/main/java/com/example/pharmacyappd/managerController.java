@@ -1,11 +1,15 @@
 package com.example.pharmacyappd;
 
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 
 import java.io.IOException;
@@ -48,6 +52,9 @@ public class managerController implements Initializable {
 
     @FXML
     ListView<Node> list_of_drug = null;
+
+    @FXML
+    AnchorPane drug_boarder;
 
     public void button(ActionEvent event) {
         if (event.getSource() == profile) {
@@ -104,7 +111,7 @@ public class managerController implements Initializable {
                 final int j = i;
                 Node[i] = FXMLLoader.load(ClassLoader.getSystemResource("fxml/item.fxml"));
                 Node[i].setOnMouseEntered(event -> Node[j].setStyle("-fx-background-color: #ffffff"));
-                Node[i].setOnMouseExited(event -> Node[j].setStyle("-fx-background-color: #e03131"));
+                Node[i].setOnMouseExited(event -> Node[j].setStyle("-fx-background-color: #fa4e4e"));
                 Node[i].setOnMousePressed(event -> Node[j].setStyle("-fx-background-color: #ffffff"));
                 list_of_drug.getItems().add(Node[i]);
             } catch (IOException e) {

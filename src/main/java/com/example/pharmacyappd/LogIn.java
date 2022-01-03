@@ -59,7 +59,7 @@ public class LogIn extends Application {
         forgotPasswordScene = new Scene(forgotPasswordRoot, 700, 450);
         codeVerificationScene = new Scene(codeVerificationRoot, 700, 450);
         changePasswordScene = new Scene(changePasswordRoot, 700, 450);
-        managerScene = new Scene(managerRoot, 1050, 630);
+        managerScene = new Scene(managerRoot);
 
         currentPrimaryStage.setTitle("Pharmacy");
         currentPrimaryStage.getIcons().add(new Image("res/pills.png"));
@@ -95,12 +95,10 @@ public class LogIn extends Application {
                 if (response.getStatus()) {
                     Platform.runLater(() -> {
                         currentUser = response.getResult().get(0);
-                        currentPrimaryStage.setResizable(true);
                         Image path = new Image("res/icons8-male-user-100.png", false);
                         circleImage.setFill(new ImagePattern(path));
+                        currentPrimaryStage.setMaximized(true);
                         currentPrimaryStage.setScene(managerScene);
-                        currentPrimaryStage.setX(250);
-                        currentPrimaryStage.setY(100);
                     });
                 }
                 // TODO show error

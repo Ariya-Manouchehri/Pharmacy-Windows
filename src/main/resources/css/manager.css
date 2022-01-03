@@ -1,72 +1,195 @@
-#hbox_bar{
+#hbox_bar {
     -fx-background-color: linear-gradient(#3dbd93, #04805f);
 }
-.button_control{
+
+.button_control {
     -fx-background-color: #3dbd93;
     -fx-text-fill: #ffffff;
 }
-.button_control:hover{
+
+.button_control:hover {
     -fx-background-color: #147e5b;
     -fx-font-size: 20;
     -fx-font-style: bold;
 }
 
-.button_control:pressed{
+.button_control:pressed {
     -fx-background-color: #147e5b;
 }
 
-.button_control:focused{
+.button_control:focused {
     -fx-background-color: #147e5b;
     -fx-border-color: #ffffff;
     -fx-border-width: 0px 0px 0px 3px;
     -fx-font-size: 20;
     -fx-font-style: bold;
 }
-#label{
+
+#label {
     -fx-background-color: #d78f00;
 }
-#circle_image{
+
+#circle_image {
     -fx-stroke: rgba(255, 255, 255, 0);
 }
-#save{
+
+#save {
     -fx-background-color: #f1c143;
     -fx-text-fill: #ffffff;
 }
-#Cancel{
+
+#Cancel {
     -fx-background-color: #bdbdbd;
     -fx-text-fill: #ffffff;
 }
-#add_drug{
+
+#add_drug {
     -fx-background-color: #f1c143;
     -fx-text-fill: #ffffff;
 }
-#remove_drug{
+
+#remove_drug {
     -fx-background-color: #bdbdbd;
     -fx-text-fill: #ffffff;
 }
-#background_anchorpane{
+
+#background_anchorpane {
     -fx-border-radius: 10;
     -fx-background-radius: 10;
     -fx-background-color: linear-gradient(#b2dee7, #ffffff 80%);
 }
-.profile_field{
+
+#drug_boardear {
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-background-color: linear-gradient(#ff6b6b, #fceeee 80%);
+}
+
+#anchor_manager_background {
+    -fx-background-color: linear-gradient(#444444, #a4a4a4 80%);
+}
+
+.profile_field {
     -fx-background-color: #bdbdbd;
     -fx-prompt-text-fill: #ffffff;
     -fx-font-size: 14;
 }
+
 #address {
     -fx-control-inner-background: #bdbdbd;
     -fx-prompt-text-fill: #ffffff;
     -fx-font-size: 14;
 }
-#drug_boarder{
+
+#drug_boarder {
     -fx-border-radius: 20;
     -fx-background-radius: 20;
-    -fx-background-color: #e03131;
+    -fx-background-color: #fa4e4e;
 }
-#drug_detail{
+
+#drug_detail {
     -fx-background-color: #ffffff;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(gaussian, #444444, 20, 0.8, 0, 0);
 }
-#Search{
+
+#Search {
     -fx-font-size: 16;
+}
+
+.list-cell {
+    -fx-control-inner-background: #ff6b6b;
+}
+
+.button_manager {
+    -fx-background-color: linear-gradient(to top left, #35ACF1, #F6B46F);
+    -fx-border-style: solid;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-border-insets: -5;
+    -fx-border-color: linear-gradient(to top left, #35ACF1, #F6B46F);
+}
+
+.button_manager:hover {
+    -fx-background-color: linear-gradient(to top left, #F6B46F, #35ACF1);
+    -fx-border-style: solid;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-border-insets: -5;
+    -fx-border-color: linear-gradient(to top left, #F6B46F, #35ACF1);
+    -fx-font-size: 20;
+    -fx-font-style: bold;
+}
+
+.button_manager:pressed {
+    -fx-background-color: linear-gradient(to top left, #35ACF1, #F6B46F);
+    -fx-border-style: solid;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-border-insets: -5;
+    -fx-border-color: linear-gradient(to top left, #35ACF1, #F6B46F);
+}
+
+#employee_details_back {
+    -fx-border-style: solid;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-border-insets: -20;
+    -fx-border-color: linear-gradient(to top left, #35ACF1, #F6B46F);
+    -fx-border-width: 10;
+}
+
+.employee_field {
+    -fx-border-style: solid;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-border-insets: -5;
+    -fx-border-color: linear-gradient(to top left, #35ACF1, #F6B46F);
+    -fx-background-color: linear-gradient(to top left, #7e8ff6, #4bf8aa);
+    -fx-border-width: 3;
+    -fx-text-fill: #1a1a25;
+    -fx-prompt-text-fill: #ffffff;
+    -fx-font-size: 14;
+}
+
+#address_employee {
+    -fx-border-style: solid;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-border-insets: -5;
+    -fx-border-color: linear-gradient(to top left, #35ACF1, #F6B46F);
+    -fx-background-color: linear-gradient(to top left, #7e8ff6, #4bf8aa);
+    -fx-border-width: 3;
+    -fx-text-fill: #1a1a25;
+    -fx-prompt-text-fill: #ffffff;
+    -fx-font-size: 14;
+}
+
+#admin_background {
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
+    -fx-background-color: #474c5f;
+}
+
+#remove_personal {
+    -fx-background-color: #f15c4d;
+}
+
+#add_personal {
+    -fx-background-color: #6d78fa;
+}
+
+#user_boarder {
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-background-color: linear-gradient(to top left, #ffffff, #e8e8e8);
+}
+
+#apply_changes {
+    -fx-background-color: #474c5f;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 18;
 }
