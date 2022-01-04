@@ -59,7 +59,7 @@ public class LogIn extends Application {
         forgotPasswordScene = new Scene(forgotPasswordRoot, 700, 450);
         codeVerificationScene = new Scene(codeVerificationRoot, 700, 450);
         changePasswordScene = new Scene(changePasswordRoot, 700, 450);
-        managerScene = new Scene(managerRoot,400,400);
+        managerScene = new Scene(managerRoot, 400, 400);
 
         currentPrimaryStage.setTitle("Pharmacy");
         currentPrimaryStage.getIcons().add(new Image("res/pills.png"));
@@ -86,31 +86,32 @@ public class LogIn extends Application {
         Circle circleImage = (Circle) managerRoot.lookup("#circle_image");
         JFXTextField phoneEditText = (JFXTextField) loginRoot.lookup("#phone_edit_text");
         JFXPasswordField passwordEditText = (JFXPasswordField) loginRoot.lookup("#password_edit_text");
-
+        Label loginErrorLabel = (Label) loginRoot.lookup("#error_label");
         SimpleObjectProperty<Response<LoginResponse>> loginResponse = new SimpleObjectProperty<>();
         loginResponse.addListener((observable, oldValue, newValue) -> {
-            if (newValue.isSuccessful()) {
-                LoginResponse response = newValue.body();
-                assert response != null;
-                if (response.getStatus()) {
-                    Platform.runLater(() -> {
+            Platform.runLater(() -> {
+                if (newValue.isSuccessful()) {
+                    LoginResponse response = newValue.body();
+                    assert response != null;
+                    if (response.getStatus()) {
                         currentUser = response.getResult().get(0);
+                        loginErrorLabel.setText("");
                         Image path = new Image("res/icons8-male-user-100.png", false);
                         circleImage.setFill(new ImagePattern(path));
                         currentPrimaryStage.setScene(managerScene);
                         currentPrimaryStage.setMaximized(true);
-                    });
-                }
-                // TODO show error
-
-            }
-            // TODO show error
+                    } else {
+                        loginErrorLabel.setText("User Not Found");
+                    }
+                } else
+                    loginErrorLabel.setText("Connection Error");
+            });
         });
 
         login.setOnAction(event -> {
             String phone = phoneEditText.getText();
             String password = passwordEditText.getText();
-            if (checkStringNumber(phone)) {
+            if (checkStringNumber(phone) && !password.isEmpty()) {
                 Task onLogin = new Task() {
                     @Override
                     protected Object call() throws Exception {
@@ -120,8 +121,14 @@ public class LogIn extends Application {
                 };
                 Thread thread = new Thread(onLogin);
                 thread.start();
+            } else if (phone.isEmpty() && password.isEmpty()) {
+                loginErrorLabel.setText("Enter your phone and password");
+            } else if (phone.isEmpty()) {
+                loginErrorLabel.setText("Enter your phone");
+            } else if (password.isEmpty()) {
+                loginErrorLabel.setText("Enter your password");
             } else {
-                // TODO show error
+                loginErrorLabel.setText("Enter a valid phone");
             }
         });
 
@@ -129,18 +136,22 @@ public class LogIn extends Application {
         Button nextButtonForgotPassword = (Button) forgotPasswordRoot.lookup("#next");
         ImageView drugIconCodeVerification = (ImageView) codeVerificationRoot.lookup("#drug_icon");
         cancelButtonForgotPassword.setOnAction(event -> currentPrimaryStage.setScene(loginScene));
+        Label forgotPasswordErrorLabel = (Label) forgotPasswordRoot.lookup("#error_label");
 
         nextButtonForgotPassword.setOnAction(event -> {
             String phone = forgotPasswordPhoneEditText.getText();
             if (checkStringNumber(phone)) {
+                forgotPasswordErrorLabel.setText("");
                 forgotPasswordPhone = phone;
                 currentPrimaryStage.setScene(codeVerificationScene);
                 if (countScene2) {
                     animation(drugIconCodeVerification);
                 }
                 countScene2 = false;
+            } else if (phone.isEmpty()) {
+                forgotPasswordErrorLabel.setText("Enter your phone");
             } else {
-                // TODO show error
+                forgotPasswordErrorLabel.setText("Enter a valid phone");
             }
         });
 
@@ -151,20 +162,18 @@ public class LogIn extends Application {
 
         SimpleObjectProperty<Response<UserResponse>> findUserResponse = new SimpleObjectProperty<>();
         findUserResponse.addListener((observable, oldValue, newValue) -> {
-            if (newValue.isSuccessful()) {
-                UserResponse response = newValue.body();
-                assert response != null;
-                if (response.getStatus()) {
-                    Platform.runLater(() -> {
+            Platform.runLater(() -> {
+                if (newValue.isSuccessful()) {
+                    UserResponse response = newValue.body();
+                    assert response != null;
+                    if (response.getStatus()) {
                         currentPrimaryStage.setScene(changePasswordScene);
                         animation(drugIconChangePassword);
-                    });
+                    }
+                    // TODO show error
                 }
                 // TODO show error
-
-            }
-            // TODO show error
-
+            });
         });
 
         JFXTextField verificationNationalCodeEditText = (JFXTextField) codeVerificationRoot.lookup("#national_code_edit_text");
@@ -186,21 +195,23 @@ public class LogIn extends Application {
 
         });
 
+        Label changePasswordErrorLabel = (Label) changePasswordRoot.lookup("#error_label");
         SimpleObjectProperty<Response<UserResponse>> changePasswordResponse = new SimpleObjectProperty<>();
         changePasswordResponse.addListener((observable, oldValue, newValue) -> {
-            if (newValue.isSuccessful()) {
-                UserResponse response = newValue.body();
-                assert response != null;
-                if (response.getStatus()){
-                    Platform.runLater(() -> {
+            Platform.runLater(() -> {
+                if (newValue.isSuccessful()) {
+                    UserResponse response = newValue.body();
+                    assert response != null;
+                    if (response.getStatus()) {
+                        changePasswordErrorLabel.setText("");
                         currentPrimaryStage.setScene(loginScene);
-                    });
+                    } else {
+                        changePasswordErrorLabel.setText("Something went wrong");
+                    }
                 } else {
-                    // TODO show error
+                    changePasswordErrorLabel.setText("Connection Error");
                 }
-            } else {
-                // TODO show error
-            }
+            });
         });
 
         Button changePassword = (Button) changePasswordRoot.lookup("#button");
@@ -208,15 +219,15 @@ public class LogIn extends Application {
         JFXTextField confirmPasswordEditText = (JFXTextField) changePasswordRoot.lookup("#confirm_password_edit_text");
         changePassword.setOnAction(event -> {
             if (newPasswordEditText.getText().isEmpty() && confirmPasswordEditText.getText().isEmpty()) {
-                // TODO show error
+                changePasswordErrorLabel.setText("Enter your new password");
             } else if (newPasswordEditText.getText().isEmpty()) {
-                // TODO show error
+                changePasswordErrorLabel.setText("Enter your new password");
             } else if (confirmPasswordEditText.getText().isEmpty()) {
-                // TODO show error
+                changePasswordErrorLabel.setText("Enter your password again");
             } else if (newPasswordEditText.getText().length() < 8) {
-                // TODO show error
+                changePasswordErrorLabel.setText("Password should be at least 8 character");
             } else if (!newPasswordEditText.getText().equals(confirmPasswordEditText.getText())) {
-                // TODO show error
+                changePasswordErrorLabel.setText("Your passwords don't match each other");
             } else {
                 User user = Objects.requireNonNull(findUserResponse.getValue().body()).getResult().get(0);
                 Task onChangPassword = new Task() {
