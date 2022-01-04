@@ -21,7 +21,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1200.0" stylesheets="@../css/manager.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pharmacyappd.managerController">
+<AnchorPane prefHeight="700.0" prefWidth="1200.0" stylesheets="@../css/manager.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pharmacyappd.managerController">
     <children>
         <VBox fx:id="hbox_bar" prefHeight="606.0" prefWidth="280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -191,7 +191,7 @@
                      <children>
                        <HBox alignment="TOP_RIGHT" prefHeight="170.0" prefWidth="620.0">
                            <children>
-                              <HBox alignment="CENTER">
+                              <HBox alignment="CENTER" HBox.hgrow="ALWAYS">
                                  <children>
                                     <JFXButton fx:id="apply_changes" buttonType="RAISED" prefHeight="35.0" prefWidth="206.0" text="Apply changes">
                                        <HBox.margin>
@@ -206,7 +206,7 @@
                                <Insets right="15.0" top="10.0" />
                            </padding>
                        </HBox>
-                        <VBox fx:id="employee_details_back" alignment="CENTER" prefHeight="215.0" prefWidth="460.0">
+                        <VBox fx:id="employee_details_back" alignment="CENTER" prefHeight="215.0" prefWidth="460.0" VBox.vgrow="ALWAYS">
                            <children>
                              <FlowPane alignment="CENTER" orientation="VERTICAL" prefHeight="199.0" prefWidth="460.0">
                                  <children>
@@ -269,9 +269,9 @@
                                     <Insets top="30.0" />
                                  </VBox.margin>
                              </FlowPane>
-                              <VBox alignment="CENTER" prefHeight="73.0" prefWidth="380.0" VBox.vgrow="ALWAYS">
+                              <VBox alignment="CENTER" fillWidth="false" prefHeight="73.0" prefWidth="380.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                     <JFXTextArea fx:id="address_employee" focusColor="#ffffff00" prefHeight="300.0" prefWidth="504.0" promptText="Address" unFocusColor="#ffffff00" />
+                                     <JFXTextArea fx:id="address_employee" focusColor="#ffffff00" prefHeight="300.0" prefWidth="485.0" promptText="Address" unFocusColor="#ffffff00" />
                                  </children>
                                  <VBox.margin>
                                     <Insets left="25.0" right="25.0" top="50.0" />
