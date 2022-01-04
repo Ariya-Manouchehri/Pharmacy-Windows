@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" stylesheets="@../css/manager.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pharmacyappd.managerController">
+<AnchorPane prefHeight="700.0" prefWidth="1200.0" stylesheets="@../css/manager.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pharmacyappd.managerController">
     <children>
         <VBox fx:id="hbox_bar" prefHeight="606.0" prefWidth="280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -83,9 +83,23 @@
             <children>
             <AnchorPane fx:id="admin_background" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="145.0">
                <children>
-                  <AnchorPane layoutX="18.400001525878906" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="700.0" AnchorPane.topAnchor="0.0">
+                  <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="700.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <GridPane alignment="BOTTOM_LEFT" hgap="20.0" layoutY="60.0" prefHeight="400.0" prefWidth="340.0" vgap="20.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="70.0">
+                        <HBox alignment="BOTTOM_CENTER" prefHeight="60.0" prefWidth="10.0">
+                           <children>
+                              <JFXButton fx:id="remove_personal" buttonType="RAISED" prefHeight="35.0" prefWidth="200.0" text="remove personal">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </JFXButton>
+                              <JFXButton fx:id="add_personal" buttonType="RAISED" prefHeight="35.0" prefWidth="200.0" text="Add new personal">
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </JFXButton>
+                           </children>
+                        </HBox>
+                        <GridPane alignment="BOTTOM_LEFT" hgap="20.0" prefHeight="400.0" prefWidth="340.0" vgap="20.0">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -151,115 +165,121 @@
                                  </graphic>
                               </Button>
                            </children>
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
                         </GridPane>
-                        <HBox alignment="BOTTOM_CENTER" prefHeight="60.0" prefWidth="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                           <children>
-                              <JFXButton fx:id="remove_personal" buttonType="RAISED" prefHeight="35.0" prefWidth="200.0" text="remove personal">
-                                 <HBox.margin>
-                                    <Insets right="10.0" />
-                                 </HBox.margin>
-                              </JFXButton>
-                              <JFXButton fx:id="add_personal" buttonType="RAISED" prefHeight="35.0" prefWidth="200.0" text="Add new personal">
-                                 <HBox.margin>
-                                    <Insets left="10.0" />
-                                 </HBox.margin>
-                              </JFXButton>
-                           </children>
-                        </HBox>
                      </children>
-                  </AnchorPane>
-                  <AnchorPane fx:id="user_boarder" layoutX="488.0" layoutY="82.0" prefHeight="508.0" prefWidth="492.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="600.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
-                   <children>
-                        <Pane fx:id="employee_details_back" layoutX="50.0" layoutY="210.0" prefHeight="350.0" prefWidth="507.0">
+                  </VBox>
+                  <VBox fx:id="user_boarder" layoutY="51.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="600.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
+                     <children>
+                       <HBox alignment="TOP_RIGHT" prefHeight="170.0" prefWidth="620.0">
                            <children>
-                              <HBox alignment="CENTER" layoutY="312.0">
+                              <HBox alignment="CENTER">
                                  <children>
-                                   <TextField fx:id="password" editable="false" prefHeight="30.0" prefWidth="500.0" promptText="Password" styleClass="employee_field" />
+                                    <JFXButton fx:id="apply_changes" buttonType="RAISED" prefHeight="35.0" prefWidth="206.0" text="Apply changes">
+                                       <HBox.margin>
+                                          <Insets right="100.0" top="50.0" />
+                                       </HBox.margin>
+                                    </JFXButton>
                                  </children>
                               </HBox>
-                              <VBox layoutY="185.0" prefHeight="110.0" prefWidth="500.0">
-                                 <children>
-                                     <JFXTextArea fx:id="address_employee" focusColor="#ffffff00" prefHeight="110.0" prefWidth="500.0" promptText="Address" unFocusColor="#ffffff00" />
-                                 </children>
-                              </VBox>
-                             <FlowPane alignment="CENTER" orientation="VERTICAL" prefHeight="149.0" prefWidth="500.0">
-                                 <children>
-                                     <VBox prefHeight="173.0" prefWidth="220.0">
-                                         <children>
-                                             <TextField fx:id="firstname_employee" editable="false" prefHeight="30.0" prefWidth="180.0" promptText="Firstname" styleClass="employee_field">
-                                                 <VBox.margin>
-                                                     <Insets />
-                                                 </VBox.margin>
-                                             </TextField>
-                                             <TextField fx:id="sex" editable="false" prefHeight="30.0" prefWidth="180.0" promptText="Sex" styleClass="employee_field">
-                                                 <VBox.margin>
-                                                     <Insets top="15.0" />
-                                                 </VBox.margin>
-                                             </TextField>
-                                             <TextField fx:id="birthday" editable="false" prefHeight="30.0" prefWidth="180.0" promptText="Birthday" styleClass="employee_field">
-                                                 <VBox.margin>
-                                                     <Insets top="15.0" />
-                                                 </VBox.margin>
-                                             </TextField>
-                                             <TextField fx:id="degree" editable="false" prefHeight="30.0" prefWidth="183.0" promptText="degree" styleClass="employee_field">
-                                                 <VBox.margin>
-                                                     <Insets top="15.0" />
-                                                 </VBox.margin>
-                                             </TextField>
-                                         </children>
-                                         <FlowPane.margin>
-                                             <Insets />
-                                         </FlowPane.margin>
-                                     </VBox>
-                                     <VBox prefHeight="173.0" prefWidth="220.0">
-                                         <children>
-                                             <TextField fx:id="lastname" editable="false" prefHeight="30.0" prefWidth="180.0" promptText="Lastname" styleClass="employee_field">
-                                                 <VBox.margin>
-                                                     <Insets />
-                                                 </VBox.margin>
-                                             </TextField>
-                                             <TextField fx:id="nationcode" editable="false" prefHeight="30.0" prefWidth="180.0" promptText="NationalCode" styleClass="employee_field">
-                                                 <VBox.margin>
-                                                     <Insets top="15.0" />
-                                                 </VBox.margin>
-                                             </TextField>
-                                             <TextField fx:id="phone_number" editable="false" prefHeight="30.0" prefWidth="180.0" promptText="Phone number" styleClass="employee_field">
-                                                 <VBox.margin>
-                                                     <Insets top="15.0" />
-                                                 </VBox.margin>
-                                             </TextField>
-                                             <TextField fx:id="job_side" editable="false" prefHeight="30.0" prefWidth="183.0" promptText="Job side" styleClass="employee_field">
-                                                 <VBox.margin>
-                                                     <Insets top="15.0" />
-                                                 </VBox.margin>
-                                             </TextField>
-                                         </children>
-                                         <FlowPane.margin>
-                                             <Insets left="60.0" />
-                                         </FlowPane.margin>
-                                     </VBox>
-                                 </children>
-                             </FlowPane>
-                           </children>
-                        </Pane>
-                       <HBox alignment="TOP_RIGHT" layoutY="1.0" prefHeight="170.0" prefWidth="620.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                           <children>
                                <Circle fx:id="circle_image" fill="DODGERBLUE" radius="80.0" stroke="BLACK" strokeType="INSIDE" />
                            </children>
                            <padding>
                                <Insets right="15.0" top="10.0" />
                            </padding>
                        </HBox>
-                        <HBox layoutY="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                        <VBox fx:id="employee_details_back" alignment="CENTER" prefHeight="215.0" prefWidth="460.0">
                            <children>
-                              <JFXButton fx:id="apply_changes" buttonType="RAISED" prefHeight="30.0" prefWidth="206.0" text="Apply changes">
-                                 <HBox.margin>
-                                    <Insets left="50.0" />
-                                 </HBox.margin></JFXButton>
+                             <FlowPane alignment="CENTER" orientation="VERTICAL" prefHeight="199.0" prefWidth="460.0">
+                                 <children>
+                                     <VBox prefHeight="150.0" prefWidth="200.0">
+                                         <children>
+                                             <TextField fx:id="firstname_employee" editable="false" prefHeight="30.0" prefWidth="180.0" promptText="Firstname" styleClass="employee_field">
+                                                 <VBox.margin>
+                                                     <Insets top="20.0" />
+                                                 </VBox.margin>
+                                             </TextField>
+                                             <TextField fx:id="sex" editable="false" prefHeight="30.0" prefWidth="180.0" promptText="Sex" styleClass="employee_field">
+                                                 <VBox.margin>
+                                                     <Insets top="20.0" />
+                                                 </VBox.margin>
+                                             </TextField>
+                                             <TextField fx:id="birthday" editable="false" prefHeight="30.0" prefWidth="180.0" promptText="Birthday" styleClass="employee_field">
+                                                 <VBox.margin>
+                                                     <Insets top="20.0" />
+                                                 </VBox.margin>
+                                             </TextField>
+                                             <TextField fx:id="degree" editable="false" prefHeight="41.0" prefWidth="200.0" promptText="degree" styleClass="employee_field">
+                                                 <VBox.margin>
+                                                     <Insets top="20.0" />
+                                                 </VBox.margin>
+                                             </TextField>
+                                         </children>
+                                         <FlowPane.margin>
+                                             <Insets top="10.0" />
+                                         </FlowPane.margin>
+                                     </VBox>
+                                     <VBox prefHeight="150.0" prefWidth="200.0">
+                                         <children>
+                                             <TextField fx:id="lastname" editable="false" prefHeight="30.0" prefWidth="180.0" promptText="Lastname" styleClass="employee_field">
+                                                 <VBox.margin>
+                                                     <Insets top="20.0" />
+                                                 </VBox.margin>
+                                             </TextField>
+                                             <TextField fx:id="nationcode" editable="false" prefHeight="30.0" prefWidth="180.0" promptText="NationalCode" styleClass="employee_field">
+                                                 <VBox.margin>
+                                                     <Insets top="20.0" />
+                                                 </VBox.margin>
+                                             </TextField>
+                                             <TextField fx:id="phone_number" editable="false" prefHeight="30.0" prefWidth="180.0" promptText="Phone number" styleClass="employee_field">
+                                                 <VBox.margin>
+                                                     <Insets top="20.0" />
+                                                 </VBox.margin>
+                                             </TextField>
+                                             <TextField fx:id="job_side" editable="false" prefHeight="30.0" prefWidth="183.0" promptText="Job side" styleClass="employee_field">
+                                                 <VBox.margin>
+                                                     <Insets top="20.0" />
+                                                 </VBox.margin>
+                                             </TextField>
+                                         </children>
+                                         <FlowPane.margin>
+                                             <Insets left="60.0" top="10.0" />
+                                         </FlowPane.margin>
+                                     </VBox>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="30.0" />
+                                 </VBox.margin>
+                             </FlowPane>
+                              <VBox alignment="CENTER" prefHeight="73.0" prefWidth="380.0">
+                                 <children>
+                                     <JFXTextArea fx:id="address_employee" focusColor="#ffffff00" prefHeight="300.0" prefWidth="504.0" promptText="Address" unFocusColor="#ffffff00" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="40.0" right="40.0" top="50.0" />
+                                 </VBox.margin>
+                              </VBox>
+                              <HBox alignment="CENTER" prefHeight="30.0" prefWidth="329.0">
+                                 <children>
+                                   <TextField fx:id="password" editable="false" prefHeight="30.0" prefWidth="485.0" promptText="Password" styleClass="employee_field">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </TextField>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="30.0" left="40.0" right="40.0" top="23.0" />
+                                 </VBox.margin>
+                              </HBox>
                            </children>
-                        </HBox>
-                   </children>
-                  </AnchorPane>
+                           <VBox.margin>
+                              <Insets bottom="35.0" left="35.0" right="35.0" top="30.0" />
+                           </VBox.margin>
+                        </VBox>
+                     </children>
+                  </VBox>
                </children>
             </AnchorPane>
                 <AnchorPane fx:id="drug_boardear" layoutY="145.0" prefHeight="470.0" prefWidth="620.0" visible="false" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="168.0">
