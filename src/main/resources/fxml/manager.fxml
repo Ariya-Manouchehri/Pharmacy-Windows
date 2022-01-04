@@ -81,9 +81,9 @@
         </VBox>
         <AnchorPane fx:id="anchor_manager_background" layoutX="280.0" layoutY="-1.0" prefHeight="601.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-            <AnchorPane fx:id="admin_background" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="145.0">
+            <HBox fx:id="admin_background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="145.0">
                <children>
-                  <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="700.0" AnchorPane.topAnchor="0.0">
+                  <VBox prefHeight="689.0" prefWidth="530.0">
                      <children>
                         <HBox alignment="BOTTOM_CENTER" prefHeight="60.0" prefWidth="10.0">
                            <children>
@@ -170,8 +170,11 @@
                            </VBox.margin>
                         </GridPane>
                      </children>
+                     <HBox.margin>
+                        <Insets left="40.0" />
+                     </HBox.margin>
                   </VBox>
-                  <VBox fx:id="user_boarder" layoutY="51.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="600.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
+                  <VBox fx:id="user_boarder">
                      <children>
                        <HBox alignment="TOP_RIGHT" prefHeight="170.0" prefWidth="620.0">
                            <children>
@@ -279,9 +282,12 @@
                            </VBox.margin>
                         </VBox>
                      </children>
+                     <HBox.margin>
+                        <Insets bottom="45.0" left="40.0" right="40.0" top="45.0" />
+                     </HBox.margin>
                   </VBox>
                </children>
-            </AnchorPane>
+            </HBox>
                 <AnchorPane fx:id="drug_boardear" layoutY="145.0" prefHeight="470.0" prefWidth="620.0" visible="false" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="168.0">
                     <children>
                   <HBox alignment="CENTER" layoutX="354.0" layoutY="10.0" prefHeight="42.0" prefWidth="263.0" AnchorPane.leftAnchor="354.0" AnchorPane.rightAnchor="2.8000000000000114">
