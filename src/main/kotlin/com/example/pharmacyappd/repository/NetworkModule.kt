@@ -16,7 +16,7 @@ class NetworkModule private constructor() {
     }
 
     companion object {
-        private const val BASE_URL = "http://5.56.132.82:8080/"
+        private const val BASE_URL = "http://185.231.112.69:3030/"
         private var instanceValue: NetworkModule? = null
 
         val instance: NetworkModule
