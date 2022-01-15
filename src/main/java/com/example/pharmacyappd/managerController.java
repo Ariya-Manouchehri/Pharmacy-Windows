@@ -1,15 +1,13 @@
 package com.example.pharmacyappd;
 
-import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 
 import java.io.IOException;
@@ -17,6 +15,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class managerController implements Initializable {
+
+    @FXML
+    ListView<Node> list_of_persons;
+
     @FXML
     Button profile;
 
@@ -117,6 +119,24 @@ public class managerController implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+        final Node[] persons = new Node[13];
+        for (int i = 0; i < persons.length; i += 3) {
+            HBox box = new HBox();
+            if (persons.length - i == 1) {
+                persons[i] = new Button("Person" + i);
+                box.getChildren().addAll(persons[i]);
+            } else if (persons.length - i == 2) {
+                persons[i] = new Button("Person" + i);
+                persons[i + 1] = new Button("Person" + i + 1);
+                box.getChildren().addAll(persons[i], persons[i + 1]);
+            } else if (persons.length - i >= 3) {
+                persons[i] = new Button("Person" + i);
+                persons[i + 1] = new Button("Person" + i + 1);
+                persons[i + 2] = new Button("Person" + i + 2);
+                box.getChildren().addAll(persons[i], persons[i + 1], persons[i + 2]);
+            }
+            list_of_persons.getItems().add(box);
         }
     }
 }
