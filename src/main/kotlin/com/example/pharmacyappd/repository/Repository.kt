@@ -6,6 +6,8 @@ class Repository private constructor() {
 
     private val pharmacyApi = NetworkModule.instance.pharmacyApi
 
+    private var accessToken = ""
+
     companion object {
 
         private var instanceValue: Repository? = null
@@ -18,6 +20,14 @@ class Repository private constructor() {
             }
     }
 
+    fun setAccessToken(token: String) {
+        accessToken = "Bearer $token"
+    }
+
+    fun removeAccessToken() {
+        accessToken = ""
+    }
+
     fun login(phone: String, password: String) = runBlocking {
         pharmacyApi.login(phone, password)
     }
@@ -28,5 +38,9 @@ class Repository private constructor() {
 
     fun resetPassword(id: Int, password: String) = runBlocking {
         pharmacyApi.resetPassword(id, password)
+    }
+
+    fun getAllMeds() = runBlocking {
+        pharmacyApi.getMeds(accessToken)
     }
 }
