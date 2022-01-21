@@ -209,6 +209,12 @@
 #Cancel_drug{
     -fx-background-color: #bdbdbd;
 }
+#save_add_drug{
+    -fx-background-color: #f1c143;
+}
+#Cancel_add_drug{
+    -fx-background-color: #bdbdbd;
+}
 #remove_all_drug{
     -fx-background-color: #fd3f3f;
 }
@@ -219,4 +225,7 @@
     -fx-border-insets:-5;
     -fx-border-color: linear-gradient(to top left, #fa9292, #84e0f1);
     -fx-border-width: 6;
+}
+.total_drug{
+    -fx-text-fill: linear-gradient(to top left, #f62020, #26d4f3, #fab31d, #863fb4);
 }

@@ -67,7 +67,7 @@ public class LogIn extends Application {
         codeVerificationScene = new Scene(codeVerificationRoot, 700, 450);
         changePasswordScene = new Scene(changePasswordRoot, 700, 450);
         remove_drug_scene = new Scene(remove_drug_Root, 600, 280);
-        add_drug_scene = new Scene(add_drug_Root, 600, 280);
+        add_drug_scene = new Scene(add_drug_Root, 600, 480);
 
         currentPrimaryStage.setTitle("Pharmacy");
         currentPrimaryStage.getIcons().add(new Image("res/pills.png"));
