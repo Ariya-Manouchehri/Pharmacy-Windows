@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+
+<Button fx:id="employee_button" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="220.0" prefWidth="200.0" stylesheets="@../css/manager.css" text="اریا منوچهری" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+   <graphic>
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../res/pills.png" />
+         </image>
+      </ImageView>
+   </graphic>
+   <font>
+      <Font size="18.0" />
+   </font>
+</Button>

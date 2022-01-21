@@ -5,6 +5,7 @@ import com.example.pharmacyappd.model.User;
 import com.example.pharmacyappd.model.UserAndToken;
 import com.example.pharmacyappd.model.UserResponse;
 import com.example.pharmacyappd.repository.Repository;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.animation.Animation;
@@ -32,11 +33,15 @@ import java.util.Objects;
 
 public class LogIn extends Application {
     Stage currentPrimaryStage;
+    Stage new_activity;
+
     Scene loginScene;
     Scene forgotPasswordScene;
     Scene codeVerificationScene;
     Scene changePasswordScene;
     Scene managerScene;
+    Scene remove_drug_scene;
+    Scene add_drug_scene;
     UserAndToken currentUser;
     boolean countScene1 = true;
     boolean countScene2 = true;
@@ -53,18 +58,23 @@ public class LogIn extends Application {
         Parent codeVerificationRoot = FXMLLoader.load(ClassLoader.getSystemResource("fxml/code_verification.fxml"));
         Parent changePasswordRoot = FXMLLoader.load(ClassLoader.getSystemResource("fxml/change_password.fxml"));
         Parent managerRoot = FXMLLoader.load(ClassLoader.getSystemResource("fxml/manager.fxml"));
+        Parent remove_drug_Root = FXMLLoader.load(ClassLoader.getSystemResource("fxml/remove_drug.fxml"));
+        Parent add_drug_Root = FXMLLoader.load(ClassLoader.getSystemResource("fxml/add_drug.fxml"));
 
         // scenes
         loginScene = new Scene(loginRoot, 700, 450);
         forgotPasswordScene = new Scene(forgotPasswordRoot, 700, 450);
         codeVerificationScene = new Scene(codeVerificationRoot, 700, 450);
         changePasswordScene = new Scene(changePasswordRoot, 700, 450);
-        managerScene = new Scene(managerRoot, 400, 400);
+        managerScene = new Scene(managerRoot);
+        remove_drug_scene = new Scene(remove_drug_Root,600,280);
+        add_drug_scene = new Scene(add_drug_Root,600,280);
 
         currentPrimaryStage.setTitle("Pharmacy");
         currentPrimaryStage.getIcons().add(new Image("res/pills.png"));
         currentPrimaryStage.setScene(loginScene);
         currentPrimaryStage.setResizable(false);
+        new_activity = new Stage();
         ImageView drugIconLogin = (ImageView) loginRoot.lookup("#drug_icon");
         animation(drugIconLogin);
         currentPrimaryStage.show();
@@ -241,6 +251,19 @@ public class LogIn extends Application {
                 thread.start();
             }
         });
+
+        JFXButton remove_drug_button = (JFXButton) managerRoot.lookup("#remove_drug");
+        remove_drug_button.setOnAction(event -> {
+            new_activity.setScene(remove_drug_scene);
+            new_activity.show();
+        });
+
+        JFXButton add_drug_button = (JFXButton) managerRoot.lookup("#add_drug");
+        add_drug_button.setOnAction(event -> {
+            new_activity.setScene(add_drug_scene);
+            new_activity.show();
+        });
+
     }
 
     public boolean checkStringNumber(String number) {
