@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="280.0" prefWidth="600.0" stylesheets="@../css/manager.css"
+            xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <AnchorPane fx:id="remove_order_boarder" layoutX="5.0" layoutY="5.0" AnchorPane.bottomAnchor="20.0"
+                    AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <children>
+                <HBox alignment="CENTER" layoutX="64.0" layoutY="70.0" AnchorPane.leftAnchor="0.0"
+                      AnchorPane.rightAnchor="0.0">
+                    <children>
+                        <JFXTextArea prefHeight="40.0" prefWidth="450.0" promptText="Please enter national code ID">
+                            <font>
+                                <Font size="14.0"/>
+                            </font>
+                            <HBox.margin>
+                                <Insets right="5.0"/>
+                            </HBox.margin>
+                        </JFXTextArea>
+                        <JFXButton contentDisplay="GRAPHIC_ONLY">
+                            <graphic>
+                                <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../res/icons8-remove-96.png"/>
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <HBox.margin>
+                                <Insets left="5.0"/>
+                            </HBox.margin>
+                        </JFXButton>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER" layoutY="150.0" prefHeight="61.0" prefWidth="600.0" spacing="15.0"
+                      AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                    <children>
+                        <JFXButton fx:id="remove_all_order" buttonType="RAISED" prefWidth="150.0"
+                                   text="Remove All order">
+                            <HBox.margin>
+                                <Insets right="100.0"/>
+                            </HBox.margin>
+                            <font>
+                                <Font name="System Italic" size="14.0"/>
+                            </font>
+                        </JFXButton>
+                        <JFXButton fx:id="save_button_order" buttonType="RAISED" prefWidth="100.0" text="Save">
+                            <font>
+                                <Font size="14.0"/>
+                            </font>
+                        </JFXButton>
+                        <JFXButton fx:id="Cancel_button_order" buttonType="RAISED" prefWidth="100.0" text="Cancel">
+                            <font>
+                                <Font size="14.0"/>
+                            </font>
+                        </JFXButton>
+                    </children>
+                </HBox>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

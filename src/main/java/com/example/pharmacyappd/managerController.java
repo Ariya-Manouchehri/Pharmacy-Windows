@@ -73,7 +73,7 @@ public class managerController implements Initializable {
     VBox orders_list = null;
 
     @FXML
-    VBox boarderof_order;
+    AnchorPane order_boarder;
 
     @FXML
     HBox admin_background;
@@ -84,6 +84,8 @@ public class managerController implements Initializable {
     @FXML
     AnchorPane background_anchorpane;
 
+    @FXML
+    AnchorPane welcome;
     @FXML
     ImageView gender;
 
@@ -96,33 +98,34 @@ public class managerController implements Initializable {
             label.setText("Profile");
             label.setStyle("-fx-background-color: #d78f00");
             background_anchorpane.setVisible(true);
-            boarderof_order.setVisible(false);
+            order_boarder.setVisible(false);
             drug_boardear.setVisible(false);
             admin_background.setVisible(false);
+            welcome.setVisible(false);
         } else if (event.getSource() == orders) {
             label.setText("Orders");
             label.setStyle("-fx-background-color: #092ea2");
-            boarderof_order.setVisible(true);
+            order_boarder.setVisible(true);
             drug_boardear.setVisible(false);
             admin_background.setVisible(false);
             background_anchorpane.setVisible(false);
-
+welcome.setVisible(false);
         } else if (event.getSource() == drugs) {
             label.setText("Drugs");
             label.setStyle("-fx-background-color: #b60000");
             drug_boardear.setVisible(true);
             admin_background.setVisible(false);
             background_anchorpane.setVisible(false);
-            boarderof_order.setVisible(false);
-
+            order_boarder.setVisible(false);
+welcome.setVisible(false);
         } else if (event.getSource() == users) {
             label.setText("Users");
             label.setStyle("-fx-background-color: #0e6704");
             admin_background.setVisible(true);
             background_anchorpane.setVisible(false);
-            boarderof_order.setVisible(false);
+            order_boarder.setVisible(false);
             drug_boardear.setVisible(false);
-
+welcome.setVisible(false);
         }
     }
 
@@ -182,7 +185,7 @@ public class managerController implements Initializable {
                             Node[i] = FXMLLoader.load(ClassLoader.getSystemResource("fxml/item.fxml"));
                             final int finalI = i;
                             Node[i].setOnMouseEntered(event -> Node[finalI].setStyle("-fx-background-color: #ffffff"));
-                            Node[i].setOnMouseExited(event -> Node[finalI].setStyle("-fx-background-color: #fa4e4e"));
+                            Node[i].setOnMouseExited(event -> Node[finalI].setStyle("-fx-background-color: #d32222"));
                             Node[i].setOnMousePressed(event -> Node[finalI].setStyle("-fx-background-color: #ffffff"));
                             Label medItemName = (Label) Node[i].lookup("#med_item_name");
                             Label medItemPrice = (Label) Node[i].lookup("#med_item_price");

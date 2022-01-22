@@ -43,6 +43,8 @@ public class LogIn extends Application {
     Scene managerScene;
     Scene remove_drug_scene;
     Scene add_drug_scene;
+    Scene remove_order_scene;
+    Scene add_order_scene;
     UserAndToken currentUser;
     boolean countScene1 = true;
     boolean countScene2 = true;
@@ -60,6 +62,8 @@ public class LogIn extends Application {
         Parent changePasswordRoot = FXMLLoader.load(ClassLoader.getSystemResource("fxml/change_password.fxml"));
         Parent remove_drug_Root = FXMLLoader.load(ClassLoader.getSystemResource("fxml/remove_drug.fxml"));
         Parent add_drug_Root = FXMLLoader.load(ClassLoader.getSystemResource("fxml/add_drug.fxml"));
+        Parent remove_order_Root = FXMLLoader.load(ClassLoader.getSystemResource("fxml/remove_order.fxml"));
+        Parent add_order_Root = FXMLLoader.load(ClassLoader.getSystemResource("fxml/add_order.fxml"));
 
         // scenes
         loginScene = new Scene(loginRoot, 700, 450);
@@ -68,6 +72,8 @@ public class LogIn extends Application {
         changePasswordScene = new Scene(changePasswordRoot, 700, 450);
         remove_drug_scene = new Scene(remove_drug_Root, 600, 280);
         add_drug_scene = new Scene(add_drug_Root, 600, 480);
+        remove_order_scene = new Scene(remove_order_Root,600,280);
+        add_order_scene = new Scene(add_order_Root,600,480);
 
         currentPrimaryStage.setTitle("Pharmacy");
         currentPrimaryStage.getIcons().add(new Image("res/pills.png"));
@@ -125,6 +131,19 @@ public class LogIn extends Application {
                     JFXButton add_drug_button = (JFXButton) managerRoot.lookup("#add_drug");
                     add_drug_button.setOnAction(event -> {
                         new_activity.setScene(add_drug_scene);
+                        new_activity.show();
+                    });
+
+                    JFXButton remove_order_button = (JFXButton) managerRoot.lookup("#remove_order");
+                    remove_order_button.setOnAction(event -> {
+                        new_activity.setScene(remove_order_scene);
+                        new_activity.show();
+                    });
+
+
+                    JFXButton add_order_button = (JFXButton) managerRoot.lookup("#add_order");
+                    add_order_button.setOnAction(event -> {
+                        new_activity.setScene(add_order_scene);
                         new_activity.show();
                     });
 

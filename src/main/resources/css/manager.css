@@ -54,15 +54,34 @@
 }
 
 #background_anchorpane {
-    -fx-border-radius: 10;
-    -fx-background-radius: 10;
-    -fx-background-color: linear-gradient(#b2dee7, #ffffff 80%);
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
+    -fx-background-color: #474c5f;
 }
 
 #drug_boardear {
     -fx-border-radius: 15;
     -fx-background-radius: 15;
     -fx-background-color: #474c5f;
+}
+#welcome{
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
+    -fx-background-color: #474c5f;
+}
+#order_boarder{
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
+    -fx-background-color: #474c5f;
+}
+#welcome_label{
+    -fx-text-fill: linear-gradient(to top left, #f62020, #26d4f3, #fab31d, #863fb4);
+    -fx-border-style: solid;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-border-insets:-15;
+    -fx-border-color: linear-gradient(to top left, #fa9292, #84e0f1);
+    -fx-border-width: 5;
 }
 
 #anchor_manager_background {
@@ -228,4 +247,27 @@
 }
 .total_drug{
     -fx-text-fill: linear-gradient(to top left, #f62020, #26d4f3, #fab31d, #863fb4);
+}
+#add_order{
+    -fx-background-color: #6d78fa;
+}
+#remove_order{
+    -fx-background-color: #f15c4d;
+}
+#Cancel_button_order{
+    -fx-background-color: #bdbdbd;
+}
+#save_button_order{
+    -fx-background-color: #f1c143;
+}
+#remove_all_order{
+    -fx-background-color: #fd3f3f;
+}
+#remove_order_boarder{
+    -fx-border-style: solid;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-border-insets:-5;
+    -fx-border-color: linear-gradient(to top left, #fa9292, #84e0f1);
+    -fx-border-width: 6;
 }
