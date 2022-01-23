@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="1140.0" spacing="150.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="order_item_hbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" spacing="150.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label text="4570168639">
+      <Label fx:id="order_item_national_number" maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="4570168639" HBox.hgrow="ALWAYS">
          <font>
             <Font name="Arial" size="20.0" />
          </font>
@@ -16,7 +17,7 @@
             <Insets />
          </HBox.margin>
       </Label>
-      <Label text="رضا">
+      <Label fx:id="order_item_firstname" maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="رضا" HBox.hgrow="ALWAYS">
          <font>
             <Font name="Arial" size="20.0" />
          </font>
@@ -24,7 +25,7 @@
             <Insets />
          </HBox.margin>
       </Label>
-      <Label text="محمد خانی زاده اردبیلی">
+      <Label fx:id="order_item_lastname" maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="محمد خانی زاده اردبیلی" HBox.hgrow="ALWAYS">
          <font>
             <Font name="Arial" size="20.0" />
          </font>
@@ -32,11 +33,12 @@
             <Insets />
          </HBox.margin>
       </Label>
-      <ImageView fx:id="gender" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="gender" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
          <image>
             <Image url="@../res/female.png" />
-         </image></ImageView>
-      <Label text="21">
+         </image>
+      </ImageView>
+      <Label fx:id="order_item_age" maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="21" HBox.hgrow="ALWAYS">
          <font>
             <Font name="Arial" size="20.0" />
          </font>
@@ -45,4 +47,7 @@
          </HBox.margin>
       </Label>
    </children>
+   <padding>
+      <Insets left="50.0" right="50.0" />
+   </padding>
 </HBox>

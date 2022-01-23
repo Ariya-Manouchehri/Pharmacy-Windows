@@ -47,4 +47,9 @@ interface PharmacyApi {
     suspend fun getOrders(
         @Header("Authorization") token: String
     ) : Response<OrdersResponse>
+
+    @GET("api/categories")
+    suspend fun getCategories(
+        @Header("Authorization") token: String
+    ) : Response<CategoryAllResponse>
 }

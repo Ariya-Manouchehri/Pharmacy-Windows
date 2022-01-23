@@ -1,13 +1,12 @@
 package com.example.pharmacyappd;
 
-import com.example.pharmacyappd.model.MedAllInfo;
-import com.example.pharmacyappd.model.MedsAllResponse;
-import com.example.pharmacyappd.model.OrdersResponse;
+import com.example.pharmacyappd.model.*;
 import com.example.pharmacyappd.repository.Repository;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,8 +25,11 @@ import retrofit2.Response;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class managerController implements Initializable {
 
@@ -110,7 +112,14 @@ public class managerController implements Initializable {
 
     SimpleObjectProperty<Response<MedsAllResponse>> medsResponse = new SimpleObjectProperty<>();
 
-    SimpleObjectProperty<Response<OrdersResponse>> ordsResponse = new SimpleObjectProperty<>();
+    SimpleObjectProperty<Response<OrdersResponse>> ordersResponse = new SimpleObjectProperty<>();
+
+    SimpleObjectProperty<Response<CategoryAllResponse>> categoryResponse = new SimpleObjectProperty<>();
+
+    List<String> categories = new ArrayList<>();
+    List<String> needDoctorList = List.of("Yes", "No");
+
+    int currentDrugIndex = 0;
 
     public void button(ActionEvent event) {
         if (event.getSource() == profile) {
@@ -128,6 +137,7 @@ public class managerController implements Initializable {
             drug_boardear.setVisible(false);
             admin_background.setVisible(false);
             background_anchorpane.setVisible(false);
+            loadOrders();
             welcome.setVisible(false);
         } else if (event.getSource() == drugs) {
             label.setText("Drugs");
@@ -202,6 +212,23 @@ public class managerController implements Initializable {
 
     public void save_edit_drug_information() {
         edit_information(false);
+        MedAllInfo medInfo = Objects.requireNonNull(medsResponse.getValue().body()).getResult().get(currentDrugIndex);
+        updateCompany(drug_company.getText());
+//        drug_name.getText();
+//        drug_price.setText(String.valueOf(medInfo.getMed().getPrice()));
+//        drug_expiration_date.setText(medInfo.getMed().getExp_date());
+//        drug_company.setText(medInfo.getCompany().getName());
+//        drug_category.setText(medInfo.getCategory().getName());
+//        drug_requires_doctor.setText(medInfo.getPharm().getNeed_dr() ? "Yes" : "No");
+//        drug_guide.setText(medInfo.getPharm().getGuide());
+//        drug_keeping.setText(medInfo.getPharm().getKeeping());
+//        drug_usage.setText(medInfo.getPharm().getUsage());
+//        total_label.setText("" + medInfo.getMed().getInv());
+//        drug_inv.setText(String.valueOf(medInfo.getMed().getInv()));
+    }
+
+    private void updateCompany(String companyName) {
+
     }
 
     public void cancel_edit_drug_information() {
@@ -226,9 +253,6 @@ public class managerController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-        loadDrugs();
-//
 //        final Node[] persons = new Node[1000];
 //        for (int i = 0; i < persons.length; i += 3) {
 //            HBox box = new HBox();
@@ -249,7 +273,60 @@ public class managerController implements Initializable {
 //        }
     }
 
+    private void loadOrders() {
+        Task getOrders = new Task() {
+            @Override
+            protected Object call() throws Exception {
+                ordersResponse.set(repository.getOrders());
+                return null;
+            }
+        };
+        Thread getOrdersThread = new Thread(getOrders);
+        getOrdersThread.start();
+
+        ordersResponse.addListener((observable, oldValue, newValue) -> Platform.runLater(() -> {
+            if (newValue.isSuccessful()) {
+                OrdersResponse response = newValue.body();
+                assert response != null;
+                if (response.getStatus()) {
+                    List<OrderAndPatient> orderAndPatients = response.getResult();
+                    Node[] nodes = new Node[orderAndPatients.size()];
+                    orders_list.getChildren().removeAll(orders_list.getChildren());
+                    for (int i = 0; i < orderAndPatients.size(); i++) {
+                        try {
+                            nodes[i] = FXMLLoader.load(ClassLoader.getSystemResource("fxml/orderItem.fxml"));
+                            OrderAndPatient order = orderAndPatients.get(i);
+                            Label nationalCode = (Label) nodes[i].lookup("#order_item_national_number");
+                            Label firstname = (Label) nodes[i].lookup("#order_item_firstname");
+                            Label lastname = (Label) nodes[i].lookup("#order_item_lastname");
+                            nationalCode.setText(order.getPatient().getNat_num());
+                            firstname.setText(order.getPatient().getFirst_name());
+                            lastname.setText(order.getPatient().getLast_name());
+                            if (order.getOrder().getPaid() && order.getOrder().getDelivered()) {
+                                nodes[i].setStyle("-fx-background-color: #7a7a7a");
+                            } else if (order.getOrder().getPaid() && !order.getOrder().getDelivered()) {
+                                nodes[i].setStyle("-fx-background-color: #ff8c8c");
+                            } else if (!order.getOrder().getPaid() && !order.getOrder().getDelivered()) {
+                                nodes[i].setStyle("-fx-background-color: #a1ff9f");
+                            }
+                            orders_list.getChildren().add(nodes[i]);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                } else {
+
+                }
+            } else {
+
+            }
+        }));
+    }
+
     private void loadDrugs() {
+        loadCompany();
+        loadCategory();
+        drug_requires_doctor.setItems(FXCollections.observableList(needDoctorList));
         Task getMeds = new Task() {
             @Override
             protected Object call() {
@@ -269,6 +346,10 @@ public class managerController implements Initializable {
                     List<MedAllInfo> result = response.getResult();
                     Node[] Node = new Node[result.size()];
                     list_of_drug.getItems().removeAll(list_of_drug.getItems());
+                    List<String> meds = result.stream()
+                            .map(medAllInfo -> medAllInfo.getPharm().getName())
+                            .collect(Collectors.toList());
+                    drug_name.setItems(FXCollections.observableList(meds));
                     for (int i = 0; i < result.size(); i++) {
                         try {
                             Node[i] = FXMLLoader.load(ClassLoader.getSystemResource("fxml/item.fxml"));
@@ -286,12 +367,11 @@ public class managerController implements Initializable {
                             medItemPrice.setText(String.valueOf(medInfo.getMed().getPrice()));
                             medItemImage.setImage(new Image(medInfo.getImage()));
                             medItemPane.setOnMouseClicked(event -> {
-                                //drug_name.setText(medInfo.getPharm().getName());
-                                drug_price.setText(String.valueOf(medInfo.getMed().getPrice()));
-                                drug_expiration_date.setText(medInfo.getMed().getExp_date());
+                                drug_name.setValue(meds.get(finalI));
+                                drug_expiration_date.setText(medInfo.getMed().getExp_date().substring(0, 9));
                                 drug_company.setText(medInfo.getCompany().getName());
-                                //drug_category.setText(medInfo.getCategory().getName());
-                                //drug_requires_doctor.setText(medInfo.getPharm().getNeed_dr() ? "Yes" : "No");
+                                drug_category.setValue(categories.get(finalI));
+                                drug_requires_doctor.setValue(medInfo.getPharm().getNeed_dr() ? "Yes" : "No");
                                 drug_guide.setText(medInfo.getPharm().getGuide());
                                 drug_keeping.setText(medInfo.getPharm().getKeeping());
                                 drug_usage.setText(medInfo.getPharm().getUsage());
@@ -325,5 +405,40 @@ public class managerController implements Initializable {
                 }
             }
         }));
+    }
+
+    private void loadCategory() {
+        Task getCategory = new Task() {
+            @Override
+            protected Object call() throws Exception {
+                categoryResponse.set(repository.getCategories());
+                return null;
+            }
+        };
+        Thread getCategoryThread = new Thread(getCategory);
+        getCategoryThread.start();
+
+        categoryResponse.addListener((observable, oldValue, newValue) -> {
+            Platform.runLater(() -> {
+                if (newValue.isSuccessful()) {
+                    CategoryAllResponse response = newValue.body();
+                    assert response != null;
+                    if (response.getStatus()) {
+                        categories = response.getResult().stream()
+                                .map(categoryAndImage -> categoryAndImage.getCategory().getName())
+                                .collect(Collectors.toList());
+                        drug_category.setItems(FXCollections.observableList(categories));
+                    } else {
+
+                    }
+                } else {
+
+                }
+            });
+        });
+    }
+
+    private void loadCompany() {
+
     }
 }
