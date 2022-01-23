@@ -2,6 +2,7 @@ package com.example.pharmacyappd;
 
 import com.example.pharmacyappd.model.MedAllInfo;
 import com.example.pharmacyappd.model.MedsAllResponse;
+import com.example.pharmacyappd.model.OrdersResponse;
 import com.example.pharmacyappd.repository.Repository;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
@@ -41,9 +42,9 @@ public class managerController implements Initializable {
     @FXML
     TextField drug_company;
     @FXML
-    TextField drug_requires_doctor;
+    ComboBox drug_requires_doctor;
     @FXML
-    TextField drug_category;
+    ComboBox drug_category;
     @FXML
     JFXTextArea drug_guide;
     @FXML
@@ -55,7 +56,7 @@ public class managerController implements Initializable {
     @FXML
     TextField drug_expiration_date;
     @FXML
-    TextField drug_name;
+    ComboBox drug_name;
     @FXML
     ListView<Node> list_of_persons;
     @FXML
@@ -102,10 +103,14 @@ public class managerController implements Initializable {
     JFXButton cancel_edit_drug_information;
     @FXML
     JFXButton save_edit_drug_information;
+    @FXML
+            JFXButton delete_current_drug;
 
     Repository repository = Repository.Companion.getInstance();
 
     SimpleObjectProperty<Response<MedsAllResponse>> medsResponse = new SimpleObjectProperty<>();
+
+    SimpleObjectProperty<Response<OrdersResponse>> ordsResponse = new SimpleObjectProperty<>();
 
     public void button(ActionEvent event) {
         if (event.getSource() == profile) {
@@ -177,6 +182,7 @@ public class managerController implements Initializable {
         inc_drug_button.setVisible(set);
         dec_drug_button.setVisible(set);
         drug_inv.setVisible(set);
+        delete_current_drug.setVisible(set);
         save_edit_drug_information.setVisible(set);
         cancel_edit_drug_information.setVisible(set);
         drug_name.setEditable(set);
@@ -264,12 +270,12 @@ public class managerController implements Initializable {
                             medItemPrice.setText(String.valueOf(medInfo.getMed().getPrice()));
                             medItemImage.setImage(new Image(medInfo.getImage()));
                             medItemPane.setOnMouseClicked(event -> {
-                                drug_name.setText(medInfo.getPharm().getName());
+                                //drug_name.setText(medInfo.getPharm().getName());
                                 drug_price.setText(String.valueOf(medInfo.getMed().getPrice()));
                                 drug_expiration_date.setText(medInfo.getMed().getExp_date());
                                 drug_company.setText(medInfo.getCompany().getName());
-                                drug_category.setText(medInfo.getCategory().getName());
-                                drug_requires_doctor.setText(medInfo.getPharm().getNeed_dr() ? "Yes" : "No");
+                                //drug_category.setText(medInfo.getCategory().getName());
+                                //drug_requires_doctor.setText(medInfo.getPharm().getNeed_dr() ? "Yes" : "No");
                                 drug_guide.setText(medInfo.getPharm().getGuide());
                                 drug_keeping.setText(medInfo.getPharm().getKeeping());
                                 drug_usage.setText(medInfo.getPharm().getUsage());

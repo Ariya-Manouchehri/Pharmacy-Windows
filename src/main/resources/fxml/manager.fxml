@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -211,7 +212,7 @@
                               <Insets right="5.0" />
                            </HBox.margin>
                         </JFXButton>
-                        <JFXButton fx:id="remove_drug" buttonType="RAISED" prefHeight="33.0" prefWidth="200.0" text="Remove drug" textFill="WHITE">
+                        <JFXButton fx:id="remove_drug" buttonType="RAISED" prefHeight="33.0" prefWidth="200.0" text="Remove All drug" textFill="WHITE">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
@@ -242,7 +243,7 @@
                                           <Insets left="5.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <JFXButton fx:id="inc_drug_button" contentDisplay="GRAPHIC_ONLY" minWidth="42.0" onAction="#inc_drug_button" prefHeight="36.0" prefWidth="42.0" visible="false">
+                                    <JFXButton fx:id="inc_drug_button" contentDisplay="GRAPHIC_ONLY" minWidth="42.0" prefHeight="36.0" prefWidth="42.0" visible="false">
                                        <graphic>
                                           <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -251,14 +252,23 @@
                                           </ImageView>
                                        </graphic>
                                        <HBox.margin>
-                                          <Insets left="60.0" />
+                                          <Insets left="40.0" />
                                        </HBox.margin>
                                     </JFXButton>
-                                    <JFXButton fx:id="dec_drug_button" contentDisplay="GRAPHIC_ONLY" minWidth="40.0" onAction="#dec_drug_button" prefHeight="36.0" prefWidth="40.0" visible="false">
+                                    <JFXButton fx:id="dec_drug_button" contentDisplay="GRAPHIC_ONLY" minWidth="40.0" prefHeight="36.0" prefWidth="40.0" visible="false">
                                        <graphic>
                                           <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../res/icons8-minus-100.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </JFXButton>
+                                    <JFXButton fx:id="delete_current_drug" contentDisplay="GRAPHIC_ONLY" minWidth="43.0" prefHeight="36.0" prefWidth="40.0" visible="false">
+                                       <graphic>
+                                          <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../res/icons8-remove-96.png" />
                                              </image>
                                           </ImageView>
                                        </graphic>
@@ -269,7 +279,7 @@
                                        </HBox.margin></TextField>
                                     <JFXButton fx:id="save_edit_drug_information" onAction="#save_edit_drug_information" prefWidth="150.0" text="Save" visible="false">
                                        <HBox.margin>
-                                          <Insets left="50.0" />
+                                          <Insets left="20.0" />
                                        </HBox.margin>
                                     </JFXButton>
                                     <JFXButton fx:id="cancel_edit_drug_information" onAction="#cancel_edit_drug_information" prefWidth="150.0" text="Cancel" visible="false">
@@ -279,7 +289,7 @@
                                     </JFXButton>
                                     <JFXButton fx:id="edit_drug_inforamtion" onAction="#edit_drug_inforamtion" text="Edit">
                                        <HBox.margin>
-                                          <Insets left="40.0" />
+                                          <Insets left="30.0" />
                                        </HBox.margin>
                                        <graphic>
                                           <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
@@ -302,11 +312,12 @@
                                                       <Font name="Baskerville Old Face" size="18.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField fx:id="drug_name" editable="false" HBox.hgrow="ALWAYS">
-                                                   <font>
-                                                      <Font size="16.0" />
-                                                   </font>
-                                                </TextField>
+                                                <JFXComboBox fx:id="drug_name" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                                                <ImageView fx:id="drug_name_new" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../res/icons8-add-48.png" />
+                                                   </image>
+                                                </ImageView>
                                              </children>
                                           </HBox>
                                           <HBox alignment="CENTER" spacing="5.0" VBox.vgrow="ALWAYS">
@@ -330,11 +341,12 @@
                                                       <Font name="Baskerville Old Face" size="18.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField fx:id="drug_requires_doctor" editable="false" HBox.hgrow="ALWAYS">
-                                                   <font>
-                                                      <Font size="16.0" />
-                                                   </font>
-                                                </TextField>
+                                                <JFXComboBox fx:id="drug_requires_doctor" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                                                <ImageView fx:id="drug_requires_doctor_new" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../res/icons8-add-48.png" />
+                                                   </image>
+                                                </ImageView>
                                              </children>
                                           </HBox>
                                        </children>
@@ -379,11 +391,12 @@
                                                       <Font name="Baskerville Old Face" size="18.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField fx:id="drug_category" editable="false" HBox.hgrow="ALWAYS">
-                                                   <font>
-                                                      <Font size="16.0" />
-                                                   </font>
-                                                </TextField>
+                                                <JFXComboBox fx:id="drug_category" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                                                <ImageView fx:id="drug_category_new" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../res/icons8-add-48.png" />
+                                                   </image>
+                                                </ImageView>
                                              </children>
                                           </HBox>
                                        </children>
