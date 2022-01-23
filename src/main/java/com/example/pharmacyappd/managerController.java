@@ -1,6 +1,6 @@
 package com.example.pharmacyappd;
 
-import com.example.pharmacyappd.model.MedInfo;
+import com.example.pharmacyappd.model.MedAllInfo;
 import com.example.pharmacyappd.model.MedsAllResponse;
 import com.example.pharmacyappd.repository.Repository;
 import com.jfoenix.controls.JFXButton;
@@ -171,8 +171,6 @@ public class managerController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-        loadDrugs();
 //
 //        final Node[] persons = new Node[1000];
 //        for (int i = 0; i < persons.length; i += 3) {
@@ -211,12 +209,13 @@ public class managerController implements Initializable {
                 MedsAllResponse response = newValue.body();
                 assert response != null;
                 if (response.getStatus()) {
-                    List<MedInfo> result = response.getResult();
+                    List<MedAllInfo> result = response.getResult();
                     Node[] Node = new Node[result.size()];
+                    list_of_drug.getItems().removeAll(list_of_drug.getItems());
                     for (int i = 0; i < result.size(); i++) {
                         try {
                             Node[i] = FXMLLoader.load(ClassLoader.getSystemResource("fxml/item.fxml"));
-                            MedInfo medInfo = result.get(i);
+                            MedAllInfo medInfo = result.get(i);
                             final int finalI = i;
                             Node[i].setOnMouseEntered(event -> Node[finalI].setStyle("-fx-background-color: #ffffff"));
                             Node[i].setOnMouseExited(event -> Node[finalI].setStyle("-fx-background-color: #d32222"));
@@ -233,8 +232,8 @@ public class managerController implements Initializable {
                                 drug_name.setText(medInfo.getPharm().getName());
                                 drug_price.setText(String.valueOf(medInfo.getMed().getPrice()));
                                 drug_expiration_date.setText(medInfo.getMed().getExp_date());
-                                drug_company.setText(medInfo.getMed().getComp_id()); // TODO change api to get company also
-                                drug_category.setText(medInfo.getPharm().getCat_id()); // TODO change api to get category also
+                                drug_company.setText(medInfo.getCompany().getName());
+                                drug_category.setText(medInfo.getCategory().getName());
                                 drug_requires_doctor.setText(medInfo.getPharm().getNeed_dr() ? "Yes" : "No");
                                 drug_guide.setText(medInfo.getPharm().getGuide());
                                 drug_keeping.setText(medInfo.getPharm().getKeeping());
@@ -252,7 +251,6 @@ public class managerController implements Initializable {
                                 });
 
                             });
-                            list_of_drug.getItems().removeAll();
                             list_of_drug.getItems().add(Node[i]);
                         } catch (Exception e) {
                             e.printStackTrace();
