@@ -104,7 +104,7 @@ public class managerController implements Initializable {
     @FXML
     JFXButton save_edit_drug_information;
     @FXML
-            JFXButton delete_current_drug;
+    JFXButton delete_current_drug;
 
     Repository repository = Repository.Companion.getInstance();
 
@@ -206,6 +206,22 @@ public class managerController implements Initializable {
 
     public void cancel_edit_drug_information() {
         edit_information(false);
+    }
+
+    public void remove_all_drug() {
+        Alert remove_all_drug_alert = new Alert(Alert.AlertType.INFORMATION);
+        remove_all_drug_alert.setX(600);
+        remove_all_drug_alert.setY(400);
+        remove_all_drug_alert.setTitle("Remove all drug");
+        remove_all_drug_alert.setHeaderText("");
+        remove_all_drug_alert.setContentText("Are you sure?\nAfter do that you have empty list of drug.");
+        remove_all_drug_alert.getButtonTypes().clear();
+        remove_all_drug_alert.getButtonTypes().add(ButtonType.YES);
+        remove_all_drug_alert.getButtonTypes().add(ButtonType.NO);
+
+        remove_all_drug_alert.showAndWait();
+        if (remove_all_drug_alert.getResult() == ButtonType.YES) {
+        }
     }
 
     @Override

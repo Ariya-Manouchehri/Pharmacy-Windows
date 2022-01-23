@@ -212,7 +212,7 @@
                               <Insets right="5.0" />
                            </HBox.margin>
                         </JFXButton>
-                        <JFXButton fx:id="remove_drug" buttonType="RAISED" prefHeight="33.0" prefWidth="200.0" text="Remove All drug" textFill="WHITE">
+                        <JFXButton fx:id="remove_drug" buttonType="RAISED" onAction="#remove_all_drug" prefHeight="33.0" prefWidth="200.0" text="Remove All drug" textFill="WHITE">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
