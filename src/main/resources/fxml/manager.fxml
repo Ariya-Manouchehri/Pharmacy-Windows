@@ -242,7 +242,7 @@
                                           <Insets left="5.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <JFXButton fx:id="inc_drug_button" contentDisplay="GRAPHIC_ONLY" minWidth="42.0" prefHeight="36.0" prefWidth="42.0">
+                                    <JFXButton fx:id="inc_drug_button" contentDisplay="GRAPHIC_ONLY" minWidth="42.0" onAction="#inc_drug_button" prefHeight="36.0" prefWidth="42.0" visible="false">
                                        <graphic>
                                           <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -254,7 +254,7 @@
                                           <Insets left="60.0" />
                                        </HBox.margin>
                                     </JFXButton>
-                                    <JFXButton fx:id="dec_drug_button" contentDisplay="GRAPHIC_ONLY" minWidth="44.0" prefHeight="36.0" prefWidth="54.0">
+                                    <JFXButton fx:id="dec_drug_button" contentDisplay="GRAPHIC_ONLY" minWidth="40.0" onAction="#dec_drug_button" prefHeight="36.0" prefWidth="40.0" visible="false">
                                        <graphic>
                                           <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -263,21 +263,21 @@
                                           </ImageView>
                                        </graphic>
                                     </JFXButton>
-                                    <TextField fx:id="drug_inv" prefHeight="26.0" prefWidth="41.0">
+                                    <TextField fx:id="drug_inv" prefHeight="26.0" prefWidth="41.0" visible="false">
                                        <HBox.margin>
                                           <Insets left="10.0" />
                                        </HBox.margin></TextField>
-                                    <JFXButton fx:id="save_edit_drug_information" prefWidth="150.0" text="Save">
+                                    <JFXButton fx:id="save_edit_drug_information" onAction="#save_edit_drug_information" prefWidth="150.0" text="Save" visible="false">
                                        <HBox.margin>
                                           <Insets left="50.0" />
                                        </HBox.margin>
                                     </JFXButton>
-                                    <JFXButton fx:id="cancel_edit_drug_information" prefWidth="150.0" text="Cancel">
+                                    <JFXButton fx:id="cancel_edit_drug_information" onAction="#cancel_edit_drug_information" prefWidth="150.0" text="Cancel" visible="false">
                                        <HBox.margin>
                                           <Insets left="10.0" />
                                        </HBox.margin>
                                     </JFXButton>
-                                    <JFXButton fx:id="edit_drug_inforamtion" text="Edit">
+                                    <JFXButton fx:id="edit_drug_inforamtion" onAction="#edit_drug_inforamtion" text="Edit">
                                        <HBox.margin>
                                           <Insets left="40.0" />
                                        </HBox.margin>
@@ -302,7 +302,7 @@
                                                       <Font name="Baskerville Old Face" size="18.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField fx:id="drug_name" HBox.hgrow="ALWAYS">
+                                                <TextField fx:id="drug_name" editable="false" HBox.hgrow="ALWAYS">
                                                    <font>
                                                       <Font size="16.0" />
                                                    </font>
@@ -316,7 +316,7 @@
                                                       <Font name="Baskerville Old Face" size="18.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField fx:id="drug_price" HBox.hgrow="ALWAYS">
+                                                <TextField fx:id="drug_price" editable="false" HBox.hgrow="ALWAYS">
                                                    <font>
                                                       <Font size="16.0" />
                                                    </font>
@@ -330,7 +330,7 @@
                                                       <Font name="Baskerville Old Face" size="18.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField fx:id="drug_requires_doctor" HBox.hgrow="ALWAYS">
+                                                <TextField fx:id="drug_requires_doctor" editable="false" HBox.hgrow="ALWAYS">
                                                    <font>
                                                       <Font size="16.0" />
                                                    </font>
@@ -351,7 +351,7 @@
                                                       <Font name="Baskerville Old Face" size="18.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField fx:id="drug_expiration_date" HBox.hgrow="ALWAYS">
+                                                <TextField fx:id="drug_expiration_date" editable="false" HBox.hgrow="ALWAYS">
                                                    <font>
                                                       <Font size="16.0" />
                                                    </font>
@@ -365,7 +365,7 @@
                                                       <Font name="Baskerville Old Face" size="18.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField fx:id="drug_company" HBox.hgrow="ALWAYS">
+                                                <TextField fx:id="drug_company" editable="false" HBox.hgrow="ALWAYS">
                                                    <font>
                                                       <Font size="16.0" />
                                                    </font>
@@ -379,7 +379,7 @@
                                                       <Font name="Baskerville Old Face" size="18.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField fx:id="drug_category" HBox.hgrow="ALWAYS">
+                                                <TextField fx:id="drug_category" editable="false" HBox.hgrow="ALWAYS">
                                                    <font>
                                                       <Font size="16.0" />
                                                    </font>
@@ -403,7 +403,7 @@
                                           <Font name="Baskerville Old Face" size="18.0" />
                                        </font>
                                     </Label>
-                                    <JFXTextArea fx:id="drug_guide" prefHeight="50.0" VBox.vgrow="ALWAYS">
+                                    <JFXTextArea fx:id="drug_guide" editable="false" prefHeight="50.0" VBox.vgrow="ALWAYS">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
@@ -420,7 +420,7 @@
                                           <Font name="Baskerville Old Face" size="18.0" />
                                        </font>
                                     </Label>
-                                    <JFXTextArea fx:id="drug_usage" prefHeight="50.0" VBox.vgrow="ALWAYS">
+                                    <JFXTextArea fx:id="drug_usage" editable="false" prefHeight="50.0" VBox.vgrow="ALWAYS">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
@@ -437,7 +437,7 @@
                                           <Font name="Baskerville Old Face" size="18.0" />
                                        </font>
                                     </Label>
-                                    <JFXTextArea fx:id="drug_keeping" prefHeight="50.0" VBox.vgrow="ALWAYS">
+                                    <JFXTextArea fx:id="drug_keeping" editable="false" prefHeight="50.0" VBox.vgrow="ALWAYS">
                                        <font>
                                           <Font size="16.0" />
                                        </font>

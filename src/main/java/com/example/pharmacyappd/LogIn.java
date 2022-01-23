@@ -147,6 +147,8 @@ public class LogIn extends Application {
                         new_activity.show();
                     });
 
+
+
                     currentPrimaryStage.setScene(managerScene);
                     currentPrimaryStage.setMaximized(true);
                 } else {

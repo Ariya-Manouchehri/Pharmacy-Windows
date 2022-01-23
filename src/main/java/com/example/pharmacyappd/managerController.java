@@ -98,6 +98,10 @@ public class managerController implements Initializable {
     AnchorPane welcome;
     @FXML
     ImageView gender;
+    @FXML
+    JFXButton cancel_edit_drug_information;
+    @FXML
+    JFXButton save_edit_drug_information;
 
     Repository repository = Repository.Companion.getInstance();
 
@@ -169,9 +173,37 @@ public class managerController implements Initializable {
         }
     }
 
+    public void edit_information(Boolean set) {
+        inc_drug_button.setVisible(set);
+        dec_drug_button.setVisible(set);
+        drug_inv.setVisible(set);
+        save_edit_drug_information.setVisible(set);
+        cancel_edit_drug_information.setVisible(set);
+        drug_name.setEditable(set);
+        drug_expiration_date.setEditable(set);
+        drug_price.setEditable(set);
+        drug_company.setEditable(set);
+        drug_requires_doctor.setEditable(set);
+        drug_category.setEditable(set);
+        drug_guide.setEditable(set);
+        drug_usage.setEditable(set);
+        drug_keeping.setEditable(set);
+    }
+
+    public void edit_drug_inforamtion() {
+        edit_information(true);
+    }
+
+    public void save_edit_drug_information() {
+        edit_information(false);
+    }
+
+    public void cancel_edit_drug_information() {
+        edit_information(false);
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         loadDrugs();
 //
 //        final Node[] persons = new Node[1000];
@@ -243,6 +275,7 @@ public class managerController implements Initializable {
                                 drug_inv.setText(String.valueOf(medInfo.getMed().getInv()));
                                 inc_drug_button.setOnMouseClicked(event1 -> {
                                     //TODO add after edit button added
+                                    total_label.textProperty().bind(drug_inv.textProperty());
                                 });
                                 dec_drug_button.setOnMouseClicked(event1 -> {
                                     //TODO add after edit button added
