@@ -4,5 +4,6 @@ data class MedAllInfo(
     val company: Company,
     val image: String,
     val med: Med,
-    val pharm: Pharm
+    val pharm: Pharm,
+    val category: Category
 )

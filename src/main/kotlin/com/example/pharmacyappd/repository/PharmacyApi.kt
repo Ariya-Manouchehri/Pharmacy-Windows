@@ -1,8 +1,6 @@
 package com.example.pharmacyappd.repository
 
-import com.example.pharmacyappd.model.LoginResponse
-import com.example.pharmacyappd.model.MedsAllResponse
-import com.example.pharmacyappd.model.UserResponse
+import com.example.pharmacyappd.model.*
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -33,4 +31,20 @@ interface PharmacyApi {
     suspend fun getMeds(
         @Header("Authorization") token: String
     ): Response<MedsAllResponse>
+
+    @POST("api/meds")
+    suspend fun newMed(
+        @Header("Authorization") token: String,
+        @Query("pharm_id") pharm_id: Int,
+        @Query("comp_id") comp_id: Int,
+        @Query("exp_date") exp_date: String,
+        @Query("price") price: Int,
+        @Query("add_info") add_info: String,
+        @Query("inv") inv: Int,
+    )
+
+    @GET("api/orders")
+    suspend fun getOrders(
+        @Header("Authorization") token: String
+    ) : Response<OrdersResponse>
 }
