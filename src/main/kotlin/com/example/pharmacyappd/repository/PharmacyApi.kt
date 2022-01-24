@@ -57,4 +57,9 @@ interface PharmacyApi {
     suspend fun getPharms(
         @Header("Authorization") token: String
     ) : Response<PharmsResponse>
+
+    @GET("api/comps")
+    suspend fun getCompanies(
+        @Header("Authorization") token: String
+    ) : Response<CompaniesResponse>
 }

@@ -1,6 +1,5 @@
 package com.example.pharmacyappd.repository
 
-import com.example.pharmacyappd.model.Company
 import kotlinx.coroutines.runBlocking
 
 class Repository private constructor() {
@@ -55,5 +54,9 @@ class Repository private constructor() {
 
     fun getPharms() = runBlocking {
         pharmacyApi.getPharms(accessToken)
+    }
+
+    fun getCompanies() = runBlocking {
+        pharmacyApi.getCompanies(accessToken)
     }
 }
