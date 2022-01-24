@@ -62,6 +62,10 @@ class Repository private constructor() {
         pharmacyApi.getOrders(accessToken)
     }
 
+    fun getOrderContent(id: Int) = runBlocking {
+        pharmacyApi.getOrderContent(accessToken, id)
+    }
+
     fun getCategories() = runBlocking {
         pharmacyApi.getCategories(accessToken)
     }

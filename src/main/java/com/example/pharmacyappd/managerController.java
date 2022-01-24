@@ -455,7 +455,7 @@ public class managerController implements Initializable {
     private void loadOrders() {
         Task getOrders = new Task() {
             @Override
-            protected Object call() throws Exception {
+            protected Object call() {
                 ordersResponse.set(repository.getOrders());
                 return null;
             }
@@ -488,6 +488,56 @@ public class managerController implements Initializable {
                             } else if (!order.getOrder().getPaid() && !order.getOrder().getDelivered()) {
                                 nodes[i].setStyle("-fx-background-color: #a1ff9f");
                             }
+                            nodes[i].setOnMouseClicked(event -> {
+                                Parent details = null;
+                                try {
+                                    details = FXMLLoader.load(ClassLoader.getSystemResource("fxml/show_ditails_of_order.fxml"));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                assert details != null;
+                                Scene detailsScene = new Scene(details);
+                                Stage detailsStage = new Stage();
+                                detailsStage.setScene(detailsScene);
+                                detailsStage.show();
+                                TextField detailsFirstName = (TextField) details.lookup("#details_order_name");
+                                ListView listView = (ListView) details.lookup("#details_order_listview_of_drug");
+                                SimpleObjectProperty<Response<OrderContentResponse>> orderContentResponse = new SimpleObjectProperty<>();
+                                Task getOrderContent = new Task() {
+                                    @Override
+                                    protected Object call() throws Exception {
+                                        orderContentResponse.set(repository.getOrderContent(order.getOrder().getId()));
+                                        return null;
+                                    }
+                                };
+                                Thread getOrderContentThread = new Thread(getOrderContent);
+                                getOrderContentThread.start();
+
+                                orderContentResponse.addListener((observable1, oldValue1, newValue1) -> {
+                                    Platform.runLater(() -> {
+                                        if (newValue1.isSuccessful()){
+                                            OrderContentResponse response1 = newValue1.body();
+                                            assert response1 != null;
+                                            if (response1.getStatus()){
+                                                List<OrderContent> result = response1.getResult();
+                                                Node[] node = new Node[result.size()];
+                                                for (int i1 = 0; i1 < result.size(); i1++) {
+                                                    try {
+                                                        node[i1] = FXMLLoader.load(ClassLoader.getSystemResource("fxml/item.fxml"));
+                                                    } catch (IOException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+                                            } else {
+
+                                            }
+                                        } else {
+
+                                        }
+                                    });
+                                });
+
+                            });
                             orders_list.getChildren().add(nodes[i]);
                         } catch (IOException e) {
                             e.printStackTrace();
