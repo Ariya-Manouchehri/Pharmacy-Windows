@@ -280,3 +280,11 @@
 #edit_drug_inforamtion{
     -fx-background-color: linear-gradient(to top left, rgba(253, 45, 45, 0.78), rgb(91, 222, 215));
 }
+#show_details_order{
+    -fx-border-style: solid;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-border-insets:-5;
+    -fx-border-color: linear-gradient(to top left, #fa9292, #84e0f1);
+    -fx-border-width: 6;
+}

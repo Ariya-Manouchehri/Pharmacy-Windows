@@ -73,4 +73,8 @@ class Repository private constructor() {
     fun getCompanies() = runBlocking {
         pharmacyApi.getCompanies(accessToken)
     }
+
+    fun getProfile() = runBlocking {
+        pharmacyApi.getProfile(accessToken)
+    }
 }

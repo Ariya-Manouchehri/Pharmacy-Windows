@@ -127,6 +127,22 @@ public class managerController implements Initializable {
     JFXButton add_drug;
     @FXML
     JFXButton remove_drug;
+    @FXML
+    TextField name;
+    @FXML
+    TextField sex;
+    @FXML
+    TextField birthday;
+    @FXML
+    TextField degree;
+    @FXML
+    TextField lastname;
+    @FXML
+    TextField nationcode;
+    @FXML
+    TextField job_side;
+
+
     Repository repository = Repository.Companion.getInstance();
 
     SimpleObjectProperty<Response<MedsAllResponse>> medsResponse = new SimpleObjectProperty<>();
@@ -134,6 +150,7 @@ public class managerController implements Initializable {
     SimpleObjectProperty<Response<CategoryAllResponse>> categoryResponse = new SimpleObjectProperty<>();
     SimpleObjectProperty<Response<PharmsResponse>> pharmsResponse = new SimpleObjectProperty<>();
     SimpleObjectProperty<Response<CompaniesResponse>> companyResponse = new SimpleObjectProperty<>();
+    SimpleObjectProperty<Response<EmployeeProfileResponse>> profileResponse = new SimpleObjectProperty<>();
 
     ObservableList<String> categories;
     ObservableList<String> companies;
@@ -150,6 +167,7 @@ public class managerController implements Initializable {
             order_boarder.setVisible(false);
             drug_boardear.setVisible(false);
             admin_background.setVisible(false);
+            loadProfile();
             welcome.setVisible(false);
         } else if (event.getSource() == orders) {
             label.setText("Orders");
@@ -324,7 +342,7 @@ public class managerController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        add_drug_scene = new Scene(add_drug_Root, 600, 480);
+        add_drug_scene = new Scene(add_drug_Root, 600, 280);
         stage_activity = new Stage();
         add_drug.setOnAction(event -> {
             stage_activity.setScene(add_drug_scene);
@@ -475,6 +493,43 @@ public class managerController implements Initializable {
                             e.printStackTrace();
                         }
                     }
+                } else {
+
+                }
+            } else {
+
+            }
+        }));
+    }
+
+    private void loadProfile() {
+        Task getProfile = new Task() {
+            @Override
+            protected Object call() throws Exception {
+                profileResponse.set(repository.getProfile());
+                return null;
+            }
+        };
+        Thread getProfileThread = new Thread(getProfile);
+        getProfileThread.start();
+
+        profileResponse.addListener((observable, oldValue, newValue) -> Platform.runLater(() -> {
+            if (newValue.isSuccessful()) {
+                EmployeeProfileResponse response = newValue.body();
+                assert response != null;
+                if (response.getStatus()) {
+                    List<EmployeeProfile> users = response.getResult();
+                    EmployeeProfile user = users.get(0);
+
+                    name.setText(user.getReferred().getFirst_name());
+                    sex.setText(user.getReferred().getGender());
+                    birthday.setText(user.getReferred().getBirthday());
+                    degree.setText(user.getReferred().getDegree());
+                    lastname.setText(user.getReferred().getLast_name());
+                    nationcode.setText(user.getReferred().getNat_num());
+                    phone_number.setText(user.getReferred().getPhone());
+                    job_side.setText(user.getReferred().getJob());
+                    address.setText(user.getReferred().getAddress());
                 } else {
 
                 }
