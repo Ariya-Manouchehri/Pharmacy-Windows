@@ -123,13 +123,13 @@ public class managerController implements Initializable {
     Repository repository = Repository.Companion.getInstance();
 
     SimpleObjectProperty<Response<MedsAllResponse>> medsResponse = new SimpleObjectProperty<>();
-
     SimpleObjectProperty<Response<OrdersResponse>> ordersResponse = new SimpleObjectProperty<>();
-
     SimpleObjectProperty<Response<CategoryAllResponse>> categoryResponse = new SimpleObjectProperty<>();
+    SimpleObjectProperty<Response<PharmsResponse>> pharmsResponse = new SimpleObjectProperty<>();
 
-    List<String> categories = new ArrayList<>();
+    List<String> categories = List.of();
     List<String> needDoctorList = List.of("Yes", "No");
+    List<String> pharms = List.of();
 
     int currentDrugIndex = 0;
 
@@ -212,12 +212,8 @@ public class managerController implements Initializable {
         delete_current_drug.setVisible(set);
         save_edit_drug_information.setVisible(set);
         cancel_edit_drug_information.setVisible(set);
-        drug_name.setEditable(set);
         drug_expiration_date.setEditable(set);
         drug_price.setEditable(set);
-        drug_company.setEditable(set);
-        drug_requires_doctor.setEditable(set);
-        drug_category.setEditable(set);
         drug_guide.setEditable(set);
         drug_usage.setEditable(set);
         drug_keeping.setEditable(set);
@@ -230,18 +226,13 @@ public class managerController implements Initializable {
     public void save_edit_drug_information() {
         edit_information(false);
         MedAllInfo medInfo = Objects.requireNonNull(medsResponse.getValue().body()).getResult().get(currentDrugIndex);
-        updateCompany(drug_company.getText());
-//        drug_name.getText();
-//        drug_price.setText(String.valueOf(medInfo.getMed().getPrice()));
-//        drug_expiration_date.setText(medInfo.getMed().getExp_date());
-//        drug_company.setText(medInfo.getCompany().getName());
-//        drug_category.setText(medInfo.getCategory().getName());
-//        drug_requires_doctor.setText(medInfo.getPharm().getNeed_dr() ? "Yes" : "No");
-//        drug_guide.setText(medInfo.getPharm().getGuide());
-//        drug_keeping.setText(medInfo.getPharm().getKeeping());
-//        drug_usage.setText(medInfo.getPharm().getUsage());
-//        total_label.setText("" + medInfo.getMed().getInv());
-//        drug_inv.setText(String.valueOf(medInfo.getMed().getInv()));
+        Pharm pharm;
+        for (int i = 0; i < pharms.size(); i++) {
+            if (pharms.get(i).matches(drug_name.getValue().toString())) {
+                pharm = Objects.requireNonNull(pharmsResponse.getValue().body()).getResult().get(i);
+                break;
+            }
+        }
     }
 
     private void updateCompany(String companyName) {
@@ -358,6 +349,7 @@ private void loadRemoveDrug(){
     private void loadDrugs() {
         loadCompany();
         loadCategory();
+        loadPharms();
         drug_requires_doctor.setItems(FXCollections.observableList(needDoctorList));
         Task getMeds = new Task() {
             @Override
@@ -378,10 +370,6 @@ private void loadRemoveDrug(){
                     List<MedAllInfo> result = response.getResult();
                     Node[] Node = new Node[result.size()];
                     list_of_drug.getItems().removeAll(list_of_drug.getItems());
-                    List<String> meds = result.stream()
-                            .map(medAllInfo -> medAllInfo.getPharm().getName())
-                            .collect(Collectors.toList());
-                    drug_name.setItems(FXCollections.observableList(meds));
                     for (int i = 0; i < result.size(); i++) {
                         try {
                             Node[i] = FXMLLoader.load(ClassLoader.getSystemResource("fxml/item.fxml"));
@@ -399,10 +387,10 @@ private void loadRemoveDrug(){
                             medItemPrice.setText(String.valueOf(medInfo.getMed().getPrice()));
                             medItemImage.setImage(new Image(medInfo.getImage()));
                             medItemPane.setOnMouseClicked(event -> {
-                                drug_name.setValue(meds.get(finalI));
+                                drug_name.setValue(medInfo.getPharm().getName());
                                 drug_expiration_date.setText(medInfo.getMed().getExp_date().substring(0, 9));
                                 drug_company.setText(medInfo.getCompany().getName());
-                                drug_category.setValue(categories.get(finalI));
+                                drug_category.setValue(medInfo.getCategory().getName());
                                 drug_requires_doctor.setValue(medInfo.getPharm().getNeed_dr() ? "Yes" : "No");
                                 drug_guide.setText(medInfo.getPharm().getGuide());
                                 drug_keeping.setText(medInfo.getPharm().getKeeping());
@@ -439,6 +427,36 @@ private void loadRemoveDrug(){
         }));
     }
 
+    private void loadPharms() {
+        Task getPharms = new Task() {
+            @Override
+            protected Object call() throws Exception {
+                pharmsResponse.set(repository.getPharms());
+                return null;
+            }
+        };
+        Thread getPharmsThread = new Thread(getPharms);
+        getPharmsThread.start();
+        pharmsResponse.addListener((observable, oldValue, newValue) -> {
+            Platform.runLater(() -> {
+                if (newValue.isSuccessful()){
+                    PharmsResponse response = newValue.body();
+                    assert response != null;
+                    if (response.getStatus()){
+                        pharms = response.getResult().stream()
+                                .map(pharm -> pharm.getName())
+                                .collect(Collectors.toList());
+                        drug_name.setItems(FXCollections.observableList(pharms));
+                    } else {
+
+                    }
+                } else {
+
+                }
+            });
+        });
+    }
+
     private void loadCategory() {
         Task getCategory = new Task() {
             @Override
@@ -450,24 +468,22 @@ private void loadRemoveDrug(){
         Thread getCategoryThread = new Thread(getCategory);
         getCategoryThread.start();
 
-        categoryResponse.addListener((observable, oldValue, newValue) -> {
-            Platform.runLater(() -> {
-                if (newValue.isSuccessful()) {
-                    CategoryAllResponse response = newValue.body();
-                    assert response != null;
-                    if (response.getStatus()) {
-                        categories = response.getResult().stream()
-                                .map(categoryAndImage -> categoryAndImage.getCategory().getName())
-                                .collect(Collectors.toList());
-                        drug_category.setItems(FXCollections.observableList(categories));
-                    } else {
-
-                    }
+        categoryResponse.addListener((observable, oldValue, newValue) -> Platform.runLater(() -> {
+            if (newValue.isSuccessful()) {
+                CategoryAllResponse response = newValue.body();
+                assert response != null;
+                if (response.getStatus()) {
+                    categories = response.getResult().stream()
+                            .map(categoryAndImage -> categoryAndImage.getCategory().getName())
+                            .collect(Collectors.toList());
+                    drug_category.setItems(FXCollections.observableList(categories));
                 } else {
 
                 }
-            });
-        });
+            } else {
+
+            }
+        }));
     }
 
     private void loadCompany() {
