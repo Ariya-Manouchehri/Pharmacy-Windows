@@ -3,6 +3,7 @@ package com.example.pharmacyappd;
 import com.example.pharmacyappd.model.*;
 import com.example.pharmacyappd.repository.Repository;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
@@ -28,7 +29,6 @@ import retrofit2.Response;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -36,11 +36,11 @@ import java.util.stream.Collectors;
 
 public class managerController implements Initializable {
     Stage stage_activity;
-    Parent add_drug_Root = FXMLLoader.load(ClassLoader.getSystemResource("fxml/add_drug.fxml"));
-    Parent remove_drug_Root = FXMLLoader.load(ClassLoader.getSystemResource("fxml/remove_drug.fxml"));
+    Parent add_drug_Root;
+    Parent remove_drug_Root;
 
-    Scene add_drug_scene = new Scene(add_drug_Root, 600, 480);
-    Scene remove_drug_scene = new Scene(remove_drug_Root, 600, 280);
+    Scene add_drug_scene;
+    Scene remove_drug_scene;
 
     @FXML
     Label total_label;
@@ -51,9 +51,9 @@ public class managerController implements Initializable {
     @FXML
     TextField drug_inv;
     @FXML
-    TextField drug_company;
+    JFXComboBox drug_company;
     @FXML
-    ComboBox drug_requires_doctor;
+    JFXComboBox drug_requires_doctor;
     @FXML
     ComboBox drug_category;
     @FXML
@@ -132,9 +132,6 @@ public class managerController implements Initializable {
     List<String> pharms = List.of();
 
     int currentDrugIndex = 0;
-
-    public managerController() throws IOException {
-    }
 
     public void button(ActionEvent event) {
         if (event.getSource() == profile) {
@@ -283,19 +280,34 @@ public class managerController implements Initializable {
     }
 
     private void loadAddDrug() {
+
+        try {
+            add_drug_Root = FXMLLoader.load(ClassLoader.getSystemResource("fxml/add_drug.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        add_drug_scene = new Scene(add_drug_Root, 600, 480);
         stage_activity = new Stage();
         add_drug.setOnAction(event -> {
             stage_activity.setScene(add_drug_scene);
             stage_activity.show();
         });
     }
-private void loadRemoveDrug(){
-    stage_activity = new Stage();
-    remove_drug.setOnAction(event -> {
-        stage_activity.setScene(remove_drug_scene);
-        stage_activity.show();
-    });
-}
+
+    private void loadRemoveDrug() {
+        try {
+            remove_drug_Root = FXMLLoader.load(ClassLoader.getSystemResource("fxml/remove_drug.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        remove_drug_scene = new Scene(remove_drug_Root, 600, 280);
+        stage_activity = new Stage();
+        remove_drug.setOnAction(event -> {
+            stage_activity.setScene(remove_drug_scene);
+            stage_activity.show();
+        });
+    }
+
     private void loadOrders() {
         Task getOrders = new Task() {
             @Override
@@ -389,7 +401,7 @@ private void loadRemoveDrug(){
                             medItemPane.setOnMouseClicked(event -> {
                                 drug_name.setValue(medInfo.getPharm().getName());
                                 drug_expiration_date.setText(medInfo.getMed().getExp_date().substring(0, 9));
-                                drug_company.setText(medInfo.getCompany().getName());
+                                drug_company.setValue(medInfo.getCompany().getName());
                                 drug_category.setValue(medInfo.getCategory().getName());
                                 drug_requires_doctor.setValue(medInfo.getPharm().getNeed_dr() ? "Yes" : "No");
                                 drug_guide.setText(medInfo.getPharm().getGuide());
@@ -439,10 +451,10 @@ private void loadRemoveDrug(){
         getPharmsThread.start();
         pharmsResponse.addListener((observable, oldValue, newValue) -> {
             Platform.runLater(() -> {
-                if (newValue.isSuccessful()){
+                if (newValue.isSuccessful()) {
                     PharmsResponse response = newValue.body();
                     assert response != null;
-                    if (response.getStatus()){
+                    if (response.getStatus()) {
                         pharms = response.getResult().stream()
                                 .map(pharm -> pharm.getName())
                                 .collect(Collectors.toList());
