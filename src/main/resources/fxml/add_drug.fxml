@@ -82,7 +82,7 @@
             </VBox>
             <HBox alignment="CENTER" layoutY="380.0" prefHeight="61.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
-                  <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" prefHeight="18.0" prefWidth="24.0">
+                  <JFXButton fx:id="new_drug_inc" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" prefHeight="18.0" prefWidth="24.0">
                      <graphic>
                         <ImageView fitHeight="28.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -94,7 +94,7 @@
                         <Insets />
                      </HBox.margin>
                   </JFXButton>
-                  <TextField prefHeight="26.0" prefWidth="41.0">
+                  <TextField fx:id="new_drug_inv" prefHeight="26.0" prefWidth="41.0">
                      <HBox.margin>
                         <Insets left="5.0" />
                      </HBox.margin>
