@@ -122,17 +122,17 @@ public class LogIn extends Application {
                     Circle circleImage = (Circle) managerRoot.lookup("#circle_image");
                     circleImage.setFill(new ImagePattern(path));
 
-                    JFXButton add_drug_button = (JFXButton) managerRoot.lookup("#add_drug");
-                    add_drug_button.setOnAction(event -> {
-                        new_activity.setScene(add_drug_scene);
-                        new_activity.show();
-                    });
+//                    JFXButton add_drug_button = (JFXButton) managerRoot.lookup("#add_drug");
+//                    add_drug_button.setOnAction(event -> {
+//                        new_activity.setScene(add_drug_scene);
+//                        new_activity.show();
+//                    });
 
-                    JFXButton remove_order_button = (JFXButton) managerRoot.lookup("#remove_order");
-                    remove_order_button.setOnAction(event -> {
-                        new_activity.setScene(remove_order_scene);
-                        new_activity.show();
-                    });
+//                    JFXButton remove_order_button = (JFXButton) managerRoot.lookup("#remove_order");
+//                    remove_order_button.setOnAction(event -> {
+//                        new_activity.setScene(remove_order_scene);
+//                        new_activity.show();
+//                    });
 
 
                     JFXButton add_order_button = (JFXButton) managerRoot.lookup("#add_order");

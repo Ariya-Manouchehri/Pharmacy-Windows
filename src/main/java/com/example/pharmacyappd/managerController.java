@@ -13,6 +13,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -21,6 +23,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 import retrofit2.Response;
 
 import java.io.IOException;
@@ -32,6 +35,12 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class managerController implements Initializable {
+    Stage stage_activity;
+    Parent add_drug_Root = FXMLLoader.load(ClassLoader.getSystemResource("fxml/add_drug.fxml"));
+    Parent remove_drug_Root = FXMLLoader.load(ClassLoader.getSystemResource("fxml/remove_drug.fxml"));
+
+    Scene add_drug_scene = new Scene(add_drug_Root, 600, 480);
+    Scene remove_drug_scene = new Scene(remove_drug_Root, 600, 280);
 
     @FXML
     Label total_label;
@@ -107,7 +116,10 @@ public class managerController implements Initializable {
     JFXButton save_edit_drug_information;
     @FXML
     JFXButton delete_current_drug;
-
+    @FXML
+    JFXButton add_drug;
+    @FXML
+    JFXButton remove_drug;
     Repository repository = Repository.Companion.getInstance();
 
     SimpleObjectProperty<Response<MedsAllResponse>> medsResponse = new SimpleObjectProperty<>();
@@ -120,6 +132,9 @@ public class managerController implements Initializable {
     List<String> needDoctorList = List.of("Yes", "No");
 
     int currentDrugIndex = 0;
+
+    public managerController() throws IOException {
+    }
 
     public void button(ActionEvent event) {
         if (event.getSource() == profile) {
@@ -147,6 +162,8 @@ public class managerController implements Initializable {
             background_anchorpane.setVisible(false);
             order_boarder.setVisible(false);
             loadDrugs();
+            loadAddDrug();
+            loadRemoveDrug();
             welcome.setVisible(false);
         } else if (event.getSource() == users) {
             label.setText("Users");
@@ -253,6 +270,7 @@ public class managerController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
 //        final Node[] persons = new Node[1000];
 //        for (int i = 0; i < persons.length; i += 3) {
 //            HBox box = new HBox();
@@ -273,6 +291,20 @@ public class managerController implements Initializable {
 //        }
     }
 
+    private void loadAddDrug() {
+        stage_activity = new Stage();
+        add_drug.setOnAction(event -> {
+            stage_activity.setScene(add_drug_scene);
+            stage_activity.show();
+        });
+    }
+private void loadRemoveDrug(){
+    stage_activity = new Stage();
+    remove_drug.setOnAction(event -> {
+        stage_activity.setScene(remove_drug_scene);
+        stage_activity.show();
+    });
+}
     private void loadOrders() {
         Task getOrders = new Task() {
             @Override
