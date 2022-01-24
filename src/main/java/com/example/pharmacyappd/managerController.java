@@ -39,9 +39,13 @@ public class managerController implements Initializable {
     Stage stage_activity;
     Parent add_drug_Root;
     Parent remove_drug_Root;
+    Parent remove_order_Root;
+    Parent add_order_Root;
 
     Scene add_drug_scene;
     Scene remove_drug_scene;
+    Scene remove_order_scene;
+    Scene add_order_scene;
 
     @FXML
     Label total_label;
@@ -151,6 +155,8 @@ public class managerController implements Initializable {
             admin_background.setVisible(false);
             background_anchorpane.setVisible(false);
             loadOrders();
+            loadAddOrder();
+            loadRemoveOrder();
             welcome.setVisible(false);
         } else if (event.getSource() == drugs) {
             label.setText("Drugs");
@@ -279,7 +285,32 @@ public class managerController implements Initializable {
 //            list_of_persons.getItems().add(box);
 //        }
     }
-
+private void loadAddOrder(){
+    try {
+        add_order_Root = FXMLLoader.load(ClassLoader.getSystemResource("fxml/add_drug.fxml"));
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    add_order_scene = new Scene(add_order_Root, 600, 480);
+    stage_activity = new Stage();
+    add_drug.setOnAction(event -> {
+        stage_activity.setScene(add_order_scene);
+        stage_activity.show();
+    });
+}
+private void loadRemoveOrder(){
+    try {
+        remove_order_Root = FXMLLoader.load(ClassLoader.getSystemResource("fxml/add_drug.fxml"));
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    remove_order_scene =  new Scene(remove_order_Root, 600, 280);
+    stage_activity = new Stage();
+    remove_drug.setOnAction(event -> {
+        stage_activity.setScene(remove_order_scene);
+        stage_activity.show();
+    });
+}
     private void loadAddDrug() {
 
         try {
