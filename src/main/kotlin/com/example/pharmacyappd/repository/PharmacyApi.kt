@@ -41,7 +41,7 @@ interface PharmacyApi {
         @Query("price") price: Int,
         @Query("add_info") add_info: String,
         @Query("inv") inv: Int,
-    )
+    ) : Response<NewMedResponse>
 
     @GET("api/orders")
     suspend fun getOrders(

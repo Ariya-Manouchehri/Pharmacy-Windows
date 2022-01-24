@@ -44,6 +44,20 @@ class Repository private constructor() {
         pharmacyApi.getMeds(accessToken)
     }
 
+    fun addNewMed(
+        pharm_id: Int,
+        comp_id: Int,
+        exp_date: String,
+        price: Int,
+        add_info: String,
+        inv: Int
+    ) = runBlocking {
+        println("entered api")
+        val a = pharmacyApi.newMed(accessToken, pharm_id, comp_id, exp_date, price, add_info, inv)
+        println("exited api")
+        return@runBlocking a
+    }
+
     fun getOrders() = runBlocking {
         pharmacyApi.getOrders(accessToken)
     }

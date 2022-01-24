@@ -6,8 +6,11 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,7 +32,6 @@ import retrofit2.Response;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -56,11 +58,11 @@ public class managerController implements Initializable {
     @FXML
     TextField drug_inv;
     @FXML
-    JFXComboBox drug_company;
+    JFXComboBox<String> drug_company;
     @FXML
-    JFXComboBox drug_requires_doctor;
+    JFXComboBox<String> drug_requires_doctor;
     @FXML
-    ComboBox drug_category;
+    JFXComboBox<String> drug_category;
     @FXML
     JFXTextArea drug_guide;
     @FXML
@@ -72,7 +74,7 @@ public class managerController implements Initializable {
     @FXML
     TextField drug_expiration_date;
     @FXML
-    ComboBox drug_name;
+    ComboBox<String> drug_name;
     @FXML
     ListView<Node> list_of_persons;
     @FXML
@@ -131,10 +133,12 @@ public class managerController implements Initializable {
     SimpleObjectProperty<Response<OrdersResponse>> ordersResponse = new SimpleObjectProperty<>();
     SimpleObjectProperty<Response<CategoryAllResponse>> categoryResponse = new SimpleObjectProperty<>();
     SimpleObjectProperty<Response<PharmsResponse>> pharmsResponse = new SimpleObjectProperty<>();
+    SimpleObjectProperty<Response<CompaniesResponse>> companyResponse = new SimpleObjectProperty<>();
 
-    List<String> categories = List.of();
-    List<String> needDoctorList = List.of("Yes", "No");
-    List<String> pharms = List.of();
+    ObservableList<String> categories;
+    ObservableList<String> companies;
+    ObservableList<String> needDoctorList = FXCollections.observableList(List.of("Yes", "NO"));
+    ObservableList<String> pharms;
 
     int currentDrugIndex = 0;
 
@@ -285,34 +289,36 @@ public class managerController implements Initializable {
 //            list_of_persons.getItems().add(box);
 //        }
     }
-private void loadAddOrder(){
-    try {
-        add_order_Root = FXMLLoader.load(ClassLoader.getSystemResource("fxml/add_drug.fxml"));
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-    add_order_scene = new Scene(add_order_Root, 600, 480);
-    stage_activity = new Stage();
-    add_drug.setOnAction(event -> {
-        stage_activity.setScene(add_order_scene);
-        stage_activity.show();
-    });
-}
-private void loadRemoveOrder(){
-    try {
-        remove_order_Root = FXMLLoader.load(ClassLoader.getSystemResource("fxml/add_drug.fxml"));
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-    remove_order_scene =  new Scene(remove_order_Root, 600, 280);
-    stage_activity = new Stage();
-    remove_drug.setOnAction(event -> {
-        stage_activity.setScene(remove_order_scene);
-        stage_activity.show();
-    });
-}
-    private void loadAddDrug() {
 
+    private void loadAddOrder() {
+        try {
+            add_order_Root = FXMLLoader.load(ClassLoader.getSystemResource("fxml/add_drug.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        add_order_scene = new Scene(add_order_Root, 600, 480);
+        stage_activity = new Stage();
+        add_drug.setOnAction(event -> {
+            stage_activity.setScene(add_order_scene);
+            stage_activity.show();
+        });
+    }
+
+    private void loadRemoveOrder() {
+        try {
+            remove_order_Root = FXMLLoader.load(ClassLoader.getSystemResource("fxml/add_drug.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        remove_order_scene = new Scene(remove_order_Root, 600, 280);
+        stage_activity = new Stage();
+        remove_drug.setOnAction(event -> {
+            stage_activity.setScene(remove_order_scene);
+            stage_activity.show();
+        });
+    }
+
+    private void loadAddDrug() {
         try {
             add_drug_Root = FXMLLoader.load(ClassLoader.getSystemResource("fxml/add_drug.fxml"));
         } catch (IOException e) {
@@ -323,7 +329,95 @@ private void loadRemoveOrder(){
         add_drug.setOnAction(event -> {
             stage_activity.setScene(add_drug_scene);
             stage_activity.show();
+            ComboBox new_drug_requires = (ComboBox) add_drug_Root.lookup("#new_drug_requires");
+            ComboBox new_drug_name = (ComboBox) add_drug_Root.lookup("#new_drug_name");
+            TextField new_drug_Expiration_date = (TextField) add_drug_Root.lookup("#new_drug_Expiration_date");
+            ComboBox new_drug_name_of_company = (ComboBox) add_drug_Root.lookup("#new_drug_name_of_company");
+            ComboBox new_drug_category = (ComboBox) add_drug_Root.lookup("#new_drug_category");
+            TextField new_drug_Price = (TextField) add_drug_Root.lookup("#new_drug_Price");
+            TextField new_drug_inv = (TextField) add_drug_Root.lookup("#new_drug_inv");
+            Button save_add_drug = (Button) add_drug_Root.lookup("#save_add_drug");
+            Button cancel_add_drug = (Button) add_drug_Root.lookup("#Cancel_add_drug");
+            JFXButton new_drug_inc = (JFXButton) add_drug_Root.lookup("#new_drug_inc");
+
+            SimpleStringProperty inventory = new SimpleStringProperty("1");
+            new_drug_category.setItems(categories);
+            new_drug_name_of_company.setItems(companies);
+            new_drug_requires.setItems(needDoctorList);
+            new_drug_name.setItems(pharms);
+            new_drug_inv.textProperty().bindBidirectional(inventory);
+
+            new_drug_inc.setOnAction(event1 -> {
+                int inv = 0;
+                try {
+                  inv = Integer.parseInt(inventory.getValue());
+                } catch (NumberFormatException ignored){}
+                inv++;
+                inventory.setValue("" + inv);
+            });
+
+            save_add_drug.setOnAction(event1 -> {
+                int categoryInd = findIndex(categories, new_drug_category.getValue().toString());
+                int companyInd = findIndex(companies, new_drug_name_of_company.getValue().toString());
+                int doctorInd = findIndex(needDoctorList, new_drug_requires.getValue().toString());
+                int pharmNameInd = findIndex(pharms, new_drug_name.getValue().toString());
+
+                int cat_id = Objects.requireNonNull(categoryResponse.getValue().body()).getResult().get(categoryInd).getCategory().getId();
+                int comp_id = Objects.requireNonNull(companyResponse.getValue().body()).getResult().get(companyInd).getId();
+                boolean needDoctor = doctorInd == 0;
+                int pharm_id = Objects.requireNonNull(pharmsResponse.getValue().body()).getResult().get(pharmNameInd).getId();
+                String exp_date = new_drug_Expiration_date.getText();
+                int price = -1;
+                int inv = -1;
+
+                try {
+                    inv = Integer.parseInt(inventory.getValue());
+                } catch (NumberFormatException ignored){}
+                try {
+                    price = Integer.parseInt(new_drug_Price.getText());
+                } catch (NumberFormatException e){}
+                if (price >= 0 && inv >= 0){
+                    SimpleObjectProperty<Response<NewMedResponse>> newMedResponse = new SimpleObjectProperty<>();
+                    int finalPrice = price;
+                    int finalInv = inv;
+                    Task addNewMed = new Task() {
+                        @Override
+                        protected Object call() {
+                            newMedResponse.set(repository.addNewMed(pharm_id, comp_id, exp_date, finalPrice, "a", finalInv));
+                            System.out.println("exited repository");
+                            return null;
+                        }
+                    };
+                    Thread addNewMedThread = new Thread(addNewMed);
+                    addNewMedThread.start();
+
+                    newMedResponse.addListener((observable, oldValue, newValue) -> Platform.runLater(() -> {
+                        if (newValue.isSuccessful()){
+                            NewMedResponse response = newValue.body();
+                            assert response != null;
+                            if (response.getStatus()){
+                                loadDrugs();
+                                stage_activity.close();
+                            } else {
+                                System.out.println(response.getMessage());
+                            }
+                        } else {
+                            System.out.println(newValue.errorBody());
+                        }
+                    }));
+
+                }
+            });
+
+            cancel_add_drug.setOnAction(event1 -> stage_activity.close());
         });
+    }
+
+    private int findIndex(List<String> list, String item){
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).matches(item)) return i;
+        }
+        return -1;
     }
 
     private void loadRemoveDrug() {
@@ -394,7 +488,7 @@ private void loadRemoveOrder(){
         loadCompany();
         loadCategory();
         loadPharms();
-        drug_requires_doctor.setItems(FXCollections.observableList(needDoctorList));
+        drug_requires_doctor.setItems(needDoctorList);
         Task getMeds = new Task() {
             @Override
             protected Object call() {
@@ -429,7 +523,11 @@ private void loadRemoveOrder(){
 
                             medItemName.setText(medInfo.getPharm().getName());
                             medItemPrice.setText(String.valueOf(medInfo.getMed().getPrice()));
-                            medItemImage.setImage(new Image(medInfo.getImage()));
+                            try {
+                                medItemImage.setImage(new Image(medInfo.getImage()));
+                            } catch (Exception e){
+                                e.printStackTrace();
+                            };
                             medItemPane.setOnMouseClicked(event -> {
                                 drug_name.setValue(medInfo.getPharm().getName());
                                 drug_expiration_date.setText(medInfo.getMed().getExp_date().substring(0, 9));
@@ -487,10 +585,11 @@ private void loadRemoveOrder(){
                     PharmsResponse response = newValue.body();
                     assert response != null;
                     if (response.getStatus()) {
-                        pharms = response.getResult().stream()
-                                .map(pharm -> pharm.getName())
+                        List<String> list = response.getResult().stream()
+                                .map(Pharm::getName)
                                 .collect(Collectors.toList());
-                        drug_name.setItems(FXCollections.observableList(pharms));
+                        pharms = FXCollections.observableList(list);
+                        drug_name.setItems(pharms);
                     } else {
 
                     }
@@ -517,10 +616,11 @@ private void loadRemoveOrder(){
                 CategoryAllResponse response = newValue.body();
                 assert response != null;
                 if (response.getStatus()) {
-                    categories = response.getResult().stream()
+                    List<String> list = response.getResult().stream()
                             .map(categoryAndImage -> categoryAndImage.getCategory().getName())
                             .collect(Collectors.toList());
-                    drug_category.setItems(FXCollections.observableList(categories));
+                    categories = FXCollections.observableList(list);
+                    drug_category.setItems(categories);
                 } else {
 
                 }
@@ -531,6 +631,34 @@ private void loadRemoveOrder(){
     }
 
     private void loadCompany() {
+        Task getCompany = new Task() {
+            @Override
+            protected Object call() throws Exception {
+                companyResponse.set(repository.getCompanies());
+                return null;
+            }
+        };
+        Thread getCompanyThread = new Thread(getCompany);
+        getCompanyThread.start();
 
+        companyResponse.addListener((observable, oldValue, newValue) -> {
+            Platform.runLater(() -> {
+                if (newValue.isSuccessful()) {
+                    CompaniesResponse response = newValue.body();
+                    assert response != null;
+                    if (response.getStatus()) {
+                        List<String> list = response.getResult().stream()
+                                .map(company -> company.getName())
+                                .collect(Collectors.toList());
+                        companies = FXCollections.observableList(list);
+                        drug_company.setItems(companies);
+                    } else {
+
+                    }
+                } else {
+
+                }
+            });
+        });
     }
 }
